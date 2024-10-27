@@ -1,0 +1,7 @@
+git rm -r --cached myenv/
+myenv/
+git add .gitignore
+git commit -m "Remove myenv from git tracking"
+^X
+
+
