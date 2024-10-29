@@ -4,6 +4,7 @@ import requests
 from fredapi import Fred
 import glob
 from datetime import datetime
+import os
 
 
 def get_yfinance_data(ticker_symbol: str) -> pd.DataFrame:
@@ -21,7 +22,7 @@ def get_yfinance_data(ticker_symbol: str) -> pd.DataFrame:
 
 
 def get_fama_french_data() -> pd.DataFrame:
-    ff = pd.read_csv("data/fama_french.csv")
+    ff = pd.read_csv(os.path.join(os.path.dirname(__file__), "../data/fama_french.csv"))
     ff["Date"] = pd.to_datetime(ff["Date"], format="%Y%m%d")
     all_cols = ff.columns
     new_cols = ["date"] + list(all_cols[1:])
@@ -31,7 +32,7 @@ def get_fama_french_data() -> pd.DataFrame:
 
 
 def get_ads_index_data() -> pd.DataFrame:
-    ads = pd.read_csv("data/ADS_index.csv")
+    ads = pd.read_csv(os.path.join(os.path.dirname(__file__), "../data/ADS_index.csv"))
     ads.columns = ["date", "ads_index"]
     ads["date"] = ads["date"].str.replace(":", "-")
     ads["date"] = pd.to_datetime(ads["date"], format="%Y-%m-%d")
@@ -54,7 +55,10 @@ def get_sp500_data() -> pd.DataFrame:
 
 
 def get_fred_data() -> pd.DataFrame:
-    files = glob.glob("data/fred_variables/*.csv")
+    path = os.path.join(os.path.dirname(__file__), "../data/FRED_Variables") + "/*.csv"
+    # print("1900 path", path)
+    files = glob.glob(path)
+    # print("files", files)
     fred = pd.read_csv(files[0])
     fred["DATE"] = pd.to_datetime(fred["DATE"], format="%Y-%m-%d")
     for file in files[1:]:

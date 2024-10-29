@@ -12,7 +12,7 @@ import seaborn as sns
 parent_path = os.path.abspath(os.path.dirname(__file__))
 root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(parent_path))))
 sys.path.append(root_path)
-from pipeline.airflow.dags.src.download_data import (
+from dags.src.download_data import (
     get_yfinance_data,
     get_fama_french_data,
     get_ads_index_data,
@@ -20,10 +20,10 @@ from pipeline.airflow.dags.src.download_data import (
     get_fred_data,
     merge_data,
 )
-from pipeline.airflow.dags.src.convert_column_dtype import convert_type_of_columns
-from pipeline.airflow.dags.src.keep_latest_data import keep_latest_data
-from pipeline.airflow.dags.src.remove_weekend_data import remove_weekends
-from pipeline.airflow.dags.src.handle_missing import fill_missing_values
+from dags.src.convert_column_dtype import convert_type_of_columns
+from dags.src.keep_latest_data import keep_latest_data
+from dags.src.remove_weekend_data import remove_weekends
+from dags.src.handle_missing import fill_missing_values
 
 
 def plot_correlation_matrix(data: pd.DataFrame):
