@@ -4,11 +4,10 @@
 ### JupyterNotebooks ###
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/
-
+pipeline/airflow/logs
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
 
-pipeline/airflow/logs
 # IPython
 profile_default/
 ipython_config.py
