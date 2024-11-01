@@ -1,6 +1,6 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos,windows,jupyternotebooks,visualstudiocode,linux
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,jupyternotebooks,visualstudiocode,linux
-
+Manor/
 ### JupyterNotebooks ###
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/
@@ -287,3 +287,7 @@ poetry.toml
 pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python
+/assets
+/gcpdeploy
+/notebooks
+/pipeline
