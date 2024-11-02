@@ -25,6 +25,7 @@ from dags.src.remove_weekend_data import remove_weekends
 
 def fill_missing_values(data: pd.DataFrame) -> pd.DataFrame:
 
+    data = data.drop(columns=[col for col in data.columns if data[col].isna().all()])
     data.fillna(method="bfill", inplace=True)
     data.fillna(method="ffill", inplace=True)
 
