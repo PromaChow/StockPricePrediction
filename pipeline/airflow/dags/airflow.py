@@ -17,6 +17,11 @@ from src.remove_weekend_data import remove_weekends
 from src.handle_missing import fill_missing_values
 from src.plot_yfinance_time_series import plot_yfinance_time_series
 from src.correlation import removing_correlated_variables, plot_correlation_matrix
+from src.lagged_features import add_lagged_features
+from src.feature_interactions import add_feature_interactions
+from src.technical_indicators import add_technical_indicators
+from src.scaler import scaler
+from src.pca import visualize_pca_components
 
 
 # Enable pickle support for XCom, allowing data to be passed between tasks
@@ -91,7 +96,7 @@ plot_time_series_task = PythonOperator(
     dag=dag,
 )
 
-# Task to plot the correlation matrix, calls the 'removing_correlated_variables' Python function
+# Task to remove correlated variables task, calls the 'removing_correlated_variables' Python function
 removing_correlated_variables_task = PythonOperator(
     task_id="removing_correlated_variables_task",
     python_callable=removing_correlated_variables,
@@ -99,6 +104,45 @@ removing_correlated_variables_task = PythonOperator(
     dag=dag,
 )
 
+# Task to add lagged features, calls the 'add_lagged_features' Python function
+add_lagged_features_task = PythonOperator(
+    task_id="add_lagged_features_task",
+    python_callable=add_lagged_features,
+    op_args=[removing_correlated_variables_task.output],
+    dag=dag,
+)
+
+# Task to add feature interactions, calls the 'add_feature_interactions' Python function
+add_feature_interactions_task = PythonOperator(
+    task_id="add_feature_interactions_task",
+    python_callable=add_feature_interactions,
+    op_args=[add_lagged_features_task.output],
+    dag=dag,
+)
+
+# Task to add technical indicators, calls the 'add_technical_indicators' Python function
+add_technical_indicators_task = PythonOperator(
+    task_id="add_technical_indicators_task",
+    python_callable=add_technical_indicators,
+    op_args=[add_feature_interactions_task.output],
+    dag=dag,
+)
+
+# Task to scale the data, calls the 'scaler' Python function
+scaler_task = PythonOperator(
+    task_id="scaler_task",
+    python_callable=scaler,
+    op_args=[add_technical_indicators_task.output],
+    dag=dag,
+)
+
+# Task to visualize PCA components, calls the 'visualize_pca_components' Python function
+visualize_pca_components_task = PythonOperator(
+    task_id="visualize_pca_components_task",
+    python_callable=visualize_pca_components,
+    op_args=[scaler_task.output],
+    dag=dag,
+)
 
 # Set task dependencies
 (
@@ -109,6 +153,11 @@ removing_correlated_variables_task = PythonOperator(
     >> handle_missing_values_task
     >> plot_time_series_task
     >> removing_correlated_variables_task
+    >> add_lagged_features_task
+    >> add_feature_interactions_task
+    >> add_technical_indicators_task
+    >> scaler_task
+    >> visualize_pca_components_task
 )
 
 
