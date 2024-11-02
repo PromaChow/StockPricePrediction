@@ -12,8 +12,8 @@ from convert_column_dtype import convert_type_of_columns
 def test_convert_type_of_columns():
     # Create a sample DataFrame with mixed types
     sample_data = pd.DataFrame({
-        'date': ['2023-01-01', '2023-01-02', '2023-01-03'],
-        'float_col': ['1.1', '2.2', '3.3'],
+        'date': ['2021-07-13', '2021-07-14', '2021-07-15'],
+        'float_col': ['1.1', '5.3', '6.7'],
         'object_col': ['a','b','c']
     })
 
@@ -27,4 +27,4 @@ def test_convert_type_of_columns():
     assert result['object_col'].dtype == 'float64'
 
     # Check if all values are preserved
-    assert result['float_col'].tolist() == [1.1, 2.2, 3.3]
+    assert result['float_col'].tolist() == [1.1, 5.3, 6.7]
