@@ -31,7 +31,7 @@ def plot_correlation_matrix(data: pd.DataFrame):
     plt.figure(figsize=(25, 18))
     sns.heatmap(data.corr(), annot=True, fmt=".2f")
     plt.title("Correlation Matrix")
-    plt.savefig("assets/correlation_matrix_original_dataset.png")
+    plt.savefig("../../assets/correlation_matrix_original_dataset.png")
     # plt.show()
 
 

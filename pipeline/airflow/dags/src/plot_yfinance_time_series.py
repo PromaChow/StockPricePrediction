@@ -20,6 +20,7 @@ from dags.src.download_data import (
     merge_data,
 )
 from dags.src.convert_column_dtype import convert_type_of_columns
+from dags.src.keep_latest_data import keep_latest_data
 from dags.src.remove_weekend_data import remove_weekends
 from dags.src.handle_missing import fill_missing_values
 
@@ -49,7 +50,7 @@ def plot_yfinance_time_series(data: pd.DataFrame):
     ## make folder if not exist
     if not os.path.exists("assets"):
         os.makedirs("assets")
-    plt.savefig("assets/yfinance_time_series.png")
+    plt.savefig("../../assets/yfinance_time_series.png")
     # plt.show()
 
 
@@ -57,7 +58,7 @@ if __name__ == "__main__":
     ticker_symbol = "GOOGL"
     data = merge_data(ticker_symbol)
     data = convert_type_of_columns(data)
-    filtered_data = dags(data, 10)
+    filtered_data = keep_latest_data(data, 10)
     removed_weekend_data = remove_weekends(filtered_data)
     filled_data = fill_missing_values(removed_weekend_data)
     plot_yfinance_time_series(filled_data)
