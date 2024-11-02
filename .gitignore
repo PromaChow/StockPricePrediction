@@ -288,15 +288,4 @@ poetry.toml
 # LSP config files
 pyrightconfig.json
 
-# End of https://www.toptal.com/developers/gitignore/api/python
-/assets
-/gcpdeploy
-/notebooks
-/pipeline
-/Assignments_Submissions
-/src
-/test
-/requirements.txt
-/current.txt
-/LICENSE
-/README.md
+
