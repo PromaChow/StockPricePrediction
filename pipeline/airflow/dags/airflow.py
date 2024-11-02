@@ -160,7 +160,6 @@ visualize_pca_components_task = PythonOperator(
     >> visualize_pca_components_task
 )
 
-
 # If this script is run directly, allow command-line interaction with the DAG
 if __name__ == "__main__":
     dag.cli()
