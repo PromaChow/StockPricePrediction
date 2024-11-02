@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 parent_path = os.path.abspath(os.path.dirname(__file__))
+
 root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(parent_path))))
 sys.path.append(root_path)
 from dags.src.download_data import (
@@ -62,7 +63,8 @@ def removing_correlated_variables(data: pd.DataFrame) -> pd.DataFrame:
     plt.figure(figsize=(25, 18))
     sns.heatmap(df_final.corr(), annot=True, fmt=".2f")
     plt.title("Correlation Matrix")
-    plt.savefig("assets/correlation_matrix_after_removing_correlated_features.png")
+    # plt.savefig("assets/correlation_matrix_after_removing_correlated_features.png")
+    plt.savefig("../../assets/correlation_matrix_after_removing_correlated_features.png")
 
     return df_final
 
