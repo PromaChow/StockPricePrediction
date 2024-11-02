@@ -1,0 +1,5 @@
+outs:
+- md5: a1ebc1bb2e0f1578241466b081371add
+  size: 2174
+  hash: md5
+  path: current.txt
