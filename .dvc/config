@@ -1,5 +1,9 @@
 [core]
     remote = myremote
 ['remote "myremote"']
+<<<<<<< HEAD
     url = s3://mlopsgiri/dvc/
     region = us-east-1
+=======
+    url = https://remote-storage-url.com
+>>>>>>> 20a59b2 (dvc)

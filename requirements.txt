@@ -30,8 +30,13 @@ webencodings==0.5.1
 yfinance==0.2.48
 fredapi==0.5.2
 <<<<<<< HEAD
+<<<<<<< HEAD
 seaborn==0.13.2
 =======
 seaborn==0.12.2
 apache-airflow
 >>>>>>> main
+=======
+seaborn==0.12.2
+apache-airflow
+>>>>>>> 20a59b2 (dvc)
