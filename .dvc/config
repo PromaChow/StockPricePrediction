@@ -1,0 +1,5 @@
+[core]
+    remote = myremote
+['remote "myremote"']
+    url = s3://mlopsgiri/dvc/
+    region = us-east-1
