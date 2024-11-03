@@ -7,7 +7,6 @@
 # pipeline/airflow/logs
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
-
 # IPython
 profile_default/
 ipython_config.py
@@ -287,3 +286,5 @@ poetry.toml
 pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python
+pipeline/airflow/.env
+pipeline/airflow/.env
