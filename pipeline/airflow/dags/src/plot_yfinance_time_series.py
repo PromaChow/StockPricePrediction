@@ -48,9 +48,9 @@ def plot_yfinance_time_series(data: pd.DataFrame):
 
     plt.tight_layout()
     ## make folder if not exist
-    if not os.path.exists("assets"):
-        os.makedirs("assets")
-    plt.savefig("../../assets/yfinance_time_series.png")
+    if not os.path.exists("artifacts"):
+        os.makedirs("artifacts")
+    plt.savefig("artifacts/yfinance_time_series.png")
     # plt.show()
 
 

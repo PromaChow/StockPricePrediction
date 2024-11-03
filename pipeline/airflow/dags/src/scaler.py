@@ -51,7 +51,8 @@ def scaler(data: pd.DataFrame, mean=None, variance=None):
     final_scaled_data = pd.concat(
         [data["date"].reset_index(drop=True), pd.DataFrame(scaled_data, columns=data_scaling.columns)], axis=1
     )
-    return final_scaled_data, scaler.mean_, scaler.var_
+
+    return final_scaled_data
 
 
 if __name__ == "__main__":
@@ -65,6 +66,6 @@ if __name__ == "__main__":
     lagged_data = add_lagged_features(removed_correlated_data)
     interaction_data = add_feature_interactions(lagged_data)
     technical_data = add_technical_indicators(interaction_data)
-    scaled_data = scaler(technical_data)[0]
+    scaled_data = scaler(technical_data)
     # breakpoint()
     print(scaled_data)

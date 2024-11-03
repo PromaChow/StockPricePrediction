@@ -5,7 +5,9 @@ import sys
 import os
 
 # Add the src directory to the Python path
-sys.path.append(os.path.abspath("pipeline/airflow/dags/src"))
+
+sys.path.append(os.path.abspath('pipeline/airflow/dags/src'))
+
 
 # Import your function
 from plot_yfinance_time_series import *
