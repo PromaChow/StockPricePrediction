@@ -118,9 +118,9 @@ def merge_data(ticker_symbol: str) -> pd.DataFrame:
     res["date"] = res["date"].dt.strftime("%Y-%m-%d")
     res = res.loc[:, ~res.columns.str.contains("^Unnamed")]
 
-    # if res.empty:
-    #     logging.error("Data was NOT merged")
-    # logging.info("Final Data was merged successfully")
+    if res.empty:
+        logging.error("Data was NOT merged")
+    logging.info("Final Data was merged successfully")
     return res
 
 
