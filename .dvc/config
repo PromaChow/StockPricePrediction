@@ -1,9 +1,5 @@
 [core]
     remote = myremote
+    autostage = true
 ['remote "myremote"']
-<<<<<<< HEAD
-    url = s3://mlopsgiri/dvc/
-    region = us-east-1
-=======
-    url = https://remote-storage-url.com
->>>>>>> 20a59b2 (dvc)
+    url = gs://stock_price_prediction_dataset/DVC
