@@ -55,7 +55,7 @@ def apply_pca(data: pd.DataFrame, variance_threshold=0.95):
     print("Explained variance by component:", explained_variance)
     print("Total components selected:", n_components)
 
-    return reduced_data, explained_variance, n_components
+    return reduced_data
 
 
 def visualize_pca_components(data: pd.DataFrame, variance_threshold=0.95):
@@ -65,15 +65,16 @@ def visualize_pca_components(data: pd.DataFrame, variance_threshold=0.95):
     Returns:
     - None
     """
-    reduced_data = apply_pca(data, variance_threshold)[0]
+    reduced_data = apply_pca(data, variance_threshold)
     # Plot PCA components
     plt.figure(figsize=(10, 8))
     plt.scatter(reduced_data[:, 0], reduced_data[:, 1], alpha=0.5)
     plt.xlabel("Principal Component 1")
     plt.ylabel("Principal Component 2")
     plt.title("PCA Components")
-    plt.savefig("../../assets/pca_components.png")
-    plt.show()
+    if not os.path.exists("artifacts"):
+        os.makedirs("artifacts")
+    plt.savefig("artifacts/pca_components.png")
 
 
 if __name__ == "__main__":
@@ -87,5 +88,5 @@ if __name__ == "__main__":
     lagged_data = add_lagged_features(removed_correlated_data)
     interaction_data = add_feature_interactions(lagged_data)
     technical_data = add_technical_indicators(interaction_data)
-    scaled_data = scaler(technical_data)[0]
+    scaled_data = scaler(technical_data)
     visualize_pca_components(scaled_data, variance_threshold=0.95)

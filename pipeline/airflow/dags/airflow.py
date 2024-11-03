@@ -136,7 +136,7 @@ scaler_task = PythonOperator(
     dag=dag,
 )
 
-# Task to visualize PCA components, calls the 'visualize_pca_components' Python function
+
 visualize_pca_components_task = PythonOperator(
     task_id="visualize_pca_components_task",
     python_callable=visualize_pca_components,

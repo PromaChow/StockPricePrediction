@@ -31,8 +31,11 @@ def plot_correlation_matrix(data: pd.DataFrame):
     plt.figure(figsize=(25, 18))
     sns.heatmap(data.corr(), annot=True, fmt=".2f")
     plt.title("Correlation Matrix")
-    plt.savefig("../../assets/correlation_matrix_original_dataset.png")
-    # plt.show()
+
+    ## make folder if not exist
+    if not os.path.exists("artifacts"):
+        os.makedirs("artifacts")
+    plt.savefig("artifacts/correlation_matrix_original_dataset.png")
 
 
 def removing_correlated_variables(data: pd.DataFrame) -> pd.DataFrame:
@@ -64,7 +67,10 @@ def removing_correlated_variables(data: pd.DataFrame) -> pd.DataFrame:
     sns.heatmap(df_final.corr(), annot=True, fmt=".2f")
     plt.title("Correlation Matrix")
     # plt.savefig("assets/correlation_matrix_after_removing_correlated_features.png")
-    plt.savefig("../../assets/correlation_matrix_after_removing_correlated_features.png")
+    ## make folder if not exist
+    if not os.path.exists("artifacts"):
+        os.makedirs("artifacts")
+    plt.savefig("artifacts/correlation_matrix_after_removing_correlated_features.png")
 
     return df_final
 
