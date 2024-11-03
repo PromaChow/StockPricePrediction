@@ -1,7 +1,10 @@
 from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python import PythonOperator
+from airflow.operators.email_operator import EmailOperator
 from airflow import configuration as conf
+import os
+from dotenv import load_dotenv, dotenv_values
 
 from src.download_data import (
     get_yfinance_data,
@@ -22,6 +25,31 @@ from src.feature_interactions import add_feature_interactions
 from src.technical_indicators import add_technical_indicators
 from src.scaler import scaler
 from src.pca import visualize_pca_components
+
+# load_dotenv()
+
+
+# # Define function to notify failure or sucess via an email
+# def notify_success(context):
+#     success_email = EmailOperator(
+#         task_id="success_email",
+#         to=os.getenv("EMAIL_TO"),
+#         subject="Success Notification from Airflow",
+#         html_content="<p>The dag tasks succeeded.</p>",
+#         dag=context["dag"],
+#     )
+#     success_email.execute(context=context)
+
+
+# def notify_failure(context):
+#     failure_email = EmailOperator(
+#         task_id="failure_email",
+#         to=os.getenv("EMAIL_TO"),
+#         subject="Failure Notification from Airflow",
+#         html_content="<p>The dag tasks failed.</p>",
+#         dag=context["dag"],
+#     )
+#     failure_email.execute(context=context)
 
 
 # Enable pickle support for XCom, allowing data to be passed between tasks
@@ -44,6 +72,17 @@ dag = DAG(
     schedule_interval=None,  # Set the schedule interval or use None for manual triggering
     catchup=False,
 )
+
+# Define the email task
+# send_email = EmailOperator(
+#     task_id="send_email",
+#     to=os.getenv("EMAIL_TO"),  # Email address of the recipient
+#     subject="Notification from Airflow",
+#     html_content="<p>This is a notification email sent from Airflow indicating that the dag was triggered</p>",
+#     dag=dag,
+#     on_failure_callback=notify_failure,
+#     on_success_callback=notify_success,
+# )
 
 # Define PythonOperators for each function
 
