@@ -7,10 +7,10 @@ from datetime import datetime
 import os
 import logging
 
-# logging.basicConfig(
-#     level=logging.DEBUG,  # Set the logging level
-#     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-# )
+logging.basicConfig(
+    level=logging.DEBUG,  # Set the logging level
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+)
 
 
 def get_yfinance_data(ticker_symbol: str) -> pd.DataFrame:
@@ -23,9 +23,9 @@ def get_yfinance_data(ticker_symbol: str) -> pd.DataFrame:
     historical_data["Date"] = historical_data["Date"].dt.date
     historical_data.columns = historical_data.columns.str.lower()
     historical_data.columns = historical_data.columns.str.replace(" ", "_")
-    # if historical_data.empty:
-    #     logging.error(f"Historical data for {ticker_symbol} NOT fetched")
-    # logging.info(f"Historical data for {ticker_symbol} fetched successfully")
+    if historical_data.empty:
+        logging.error(f"Historical data for {ticker_symbol} NOT fetched")
+    logging.info(f"Historical data for {ticker_symbol} fetched successfully")
 
     return historical_data
 
@@ -36,9 +36,9 @@ def get_fama_french_data() -> pd.DataFrame:
     all_cols = ff.columns
     new_cols = ["date"] + list(all_cols[1:])
     ff.columns = new_cols
-    # if ff.empty:
-    #     logging.error("Fama French data was NOT loaded")
-    # logging.info("Fama French data was loaded successfully")
+    if ff.empty:
+        logging.error("Fama French data was NOT loaded")
+    logging.info("Fama French data was loaded successfully")
 
     return ff
 
@@ -48,9 +48,9 @@ def get_ads_index_data() -> pd.DataFrame:
     ads.columns = ["date", "ads_index"]
     ads["date"] = ads["date"].str.replace(":", "-")
     ads["date"] = pd.to_datetime(ads["date"], format="%Y-%m-%d")
-    # if ads.empty:
-    #     logging.error("ADS Index data was NOT loaded")
-    # logging.info("ADS Index data was loaded successfully")
+    if ads.empty:
+        logging.error("ADS Index data was NOT loaded")
+    logging.info("ADS Index data was loaded successfully")
 
     return ads
 
@@ -66,9 +66,9 @@ def get_sp500_data() -> pd.DataFrame:
     sp500.reset_index(inplace=True)
     sp500.columns = ["date", "SP500"]
 
-    # if sp500.empty:
-    #     logging.error("SP500 data was NOT loaded")
-    # logging.info("SP500 data was loaded successfully")
+    if sp500.empty:
+        logging.error("SP500 data was NOT loaded")
+    logging.info("SP500 data was loaded successfully")
 
     return sp500
 
@@ -92,9 +92,9 @@ def get_fred_data() -> pd.DataFrame:
     new_cols = ["date"] + list(all_cols[1:])
     fred.columns = new_cols
 
-    # if fred.empty:
-    #     logging.error("FRED data was NOT loaded")
-    # logging.info("FRED data was loaded successfully")
+    if fred.empty:
+        logging.error("FRED data was NOT loaded")
+    logging.info("FRED data was loaded successfully")
 
     return fred
 
