@@ -1,3 +1,5 @@
+
+
 import pytest
 import pandas as pd
 import numpy as np
@@ -71,3 +73,4 @@ def test_merge_data_date_sorting():
 def test_merge_data_no_unnamed_columns():
     data = merge_data('GOOGL')
     assert not any('Unnamed' in col for col in data.columns)
+

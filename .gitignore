@@ -1,13 +1,17 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos,windows,jupyternotebooks,visualstudiocode,linux
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,jupyternotebooks,visualstudiocode,linux
+Manor/
+aws/
+# DVC tracked files
+*.dvc
+.dvc/
 
 ### JupyterNotebooks ###
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/
-pipeline/airflow/logs
+# pipeline/airflow/logs
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
-
 # IPython
 profile_default/
 ipython_config.py
@@ -287,3 +291,4 @@ poetry.toml
 pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python
+pipeline/airflow/.env

@@ -16,12 +16,14 @@ def test_fill_missing_values_basic():
         'B': [np.nan, 2, np.nan, 4, 5]
     })
 
+
     result = fill_missing_values(sample_data)
 
     # Check if there are no missing values in the result
     assert result.isna().sum().sum() == 0
 
     # Check if the backward fill and forward fill worked correctly
+
     assert result['A'].tolist() == [3, 3, 3, 5, 5]
     assert result['B'].tolist() == [2, 2, 4, 4, 5]
 
@@ -31,6 +33,7 @@ def test_fill_missing_values_all_nan_column():
         'B': [2, np.nan, np.nan],
         'C': [np.nan, np.nan, np.nan]
     })
+
 
     nan_result = fill_missing_values(nan_data)
 
@@ -53,5 +56,6 @@ def test_fill_missing_values_no_missing_data():
         'A': [1, 2, 3],
         'B': [4, 5, 6]
     })
+
     result = fill_missing_values(complete_data)
     pd.testing.assert_frame_equal(result, complete_data)

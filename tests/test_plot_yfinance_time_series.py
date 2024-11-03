@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 
 # Add the src directory to the Python path
+
 sys.path.append(os.path.abspath('pipeline/airflow'))
 
 from dags.src.plot_yfinance_time_series import plot_yfinance_time_series
@@ -72,4 +73,5 @@ def test_plot_yfinance_time_series_empty_data():
         
         # Close all plots to free up memory
         plt.close('all')
+
 
