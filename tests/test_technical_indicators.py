@@ -4,10 +4,6 @@ import numpy as np
 import sys
 import os
 
-# # Add the src directory to the Python path
-# sys.path.append(os.path.abspath("pipeline/airflow"))
-
-# from dags.src.technical_indicators import add_technical_indicators
 
 # Add the src directory to the Python path
 src_path = os.path.abspath("pipeline/airflow/dags/src")
@@ -30,8 +26,9 @@ def sample_data():
     return data
 
 
-def test_add_technical_indicators(sample_data):
-    result = add_technical_indicators(sample_data)
+def test_add_technical_indicators():
+    data = sample_data()
+    result = add_technical_indicators(data)
 
     # Check if new columns are added
     new_columns = ["RSI", "MACD", "MACD_signal", "MA20", "BB_upper", "BB_lower"]
@@ -52,7 +49,7 @@ def test_add_technical_indicators(sample_data):
     assert not result.isnull().any().any()
 
     # Check if the number of rows is less than the original (due to NaN dropping)
-    assert len(result) < len(sample_data)
+    assert len(result) < len(data)
 
 
 def test_add_technical_indicators_constant_price():
