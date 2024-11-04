@@ -3,9 +3,10 @@
 Manor/
 aws/
 # DVC tracked files
-*.dvc
-.dvc/
-
+#*.dvc
+#.dvc/
+.dvc/cache/
+.dvc/tmp/
 ### JupyterNotebooks ###
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/
