@@ -2,6 +2,9 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,jupyternotebooks,visualstudiocode,linux
 Manor/
 aws/
+# DVC tracked files
+*.dvc
+.dvc/
 
 ### JupyterNotebooks ###
 # gitignore template for Jupyter Notebooks

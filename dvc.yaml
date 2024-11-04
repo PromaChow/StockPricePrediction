@@ -1,0 +1,16 @@
+stages:
+  preprocess:
+    cmd: python src/dataapi.py data/raw/dataset.csv data/preprocessed
+    deps:
+    - data/raw/dataset.csv
+    - src/dataapi.py
+    outs:
+    - data/preprocessed
+  feature_engineering:
+    cmd: python pipeline/airflow/dags/src/feature_interactions.py data/preprocessed/merged_original_dataset.csv
+      data/features
+    deps:
+    - data/preprocessed/merged_original_dataset.csv
+    - pipeline/airflow/dags/src/feature_interactions.py
+    outs:
+    - data/features
