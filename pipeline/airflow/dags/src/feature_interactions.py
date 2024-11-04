@@ -9,10 +9,7 @@ import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# parent_path = os.path.abspath(os.path.dirname(__file__))
 
-# root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(parent_path))))
-# sys.path.append(root_path)
 sys.path.append(os.path.abspath("pipeline/airflow"))
 sys.path.append(os.path.abspath("."))
 

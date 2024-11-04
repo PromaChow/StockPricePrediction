@@ -67,7 +67,7 @@ default_args = {
 
 # Create a DAG instance named 'datapipeline' with the defined default arguments
 dag = DAG(
-    "datapipeline",
+    "Group10_Pipeline",
     default_args=default_args,
     description="Airflow DAG for the datapipeline",
     schedule_interval=None,  # Set the schedule interval or use None for manual triggering
@@ -75,8 +75,8 @@ dag = DAG(
 )
 
 # Define the email task
-send_email = EmailOperator(
-    task_id="send_email",
+send_email_task = EmailOperator(
+    task_id="send_email_task",
     to=os.getenv("EMAIL_TO"),  # Email address of the recipient
     subject="Notification from Airflow",
     html_content="<p>This is a notification email sent from Airflow indicating that the dag was triggered</p>",
@@ -198,7 +198,7 @@ visualize_pca_components_task = PythonOperator(
     >> add_technical_indicators_task
     >> scaler_task
     >> visualize_pca_components_task
-    >> send_email
+    >> send_email_task
 )
 
 # If this script is run directly, allow command-line interaction with the DAG

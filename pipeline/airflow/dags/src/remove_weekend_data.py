@@ -6,10 +6,14 @@ import glob
 from datetime import datetime
 import sys
 import os
+import logging
 
-# parent_path = os.path.abspath(os.path.dirname(__file__))
-# root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(parent_path))))
-# sys.path.append(root_path)
+logging.basicConfig(
+    level=logging.DEBUG,  # Set the logging level
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+)
+
+
 sys.path.append(os.path.abspath("pipeline/airflow"))
 sys.path.append(os.path.abspath("."))
 
@@ -27,8 +31,18 @@ from dags.src.keep_latest_data import keep_latest_data
 
 def remove_weekends(data: pd.DataFrame) -> pd.DataFrame:
 
+    logging.info("Removing weekend data")
+
     # Removing weekends (Saturday = 5, Sunday = 6)
     removed_weekend_data = data[~data["date"].dt.weekday.isin([5, 6])]
+
+    num_removed = len(data) - len(removed_weekend_data)
+    logging.info(f"Removed {num_removed} rows of weekend dates")
+
+    if removed_weekend_data.empty:
+        logging.error("Resulting DataFrame is empty")
+    else:
+        logging.info("Weekend dates data removed successfully")
 
     return removed_weekend_data
 
