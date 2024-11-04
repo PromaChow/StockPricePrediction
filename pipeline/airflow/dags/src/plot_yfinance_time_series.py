@@ -7,10 +7,16 @@ from datetime import datetime
 import sys
 import os
 import matplotlib.pyplot as plt
+import logging
 
-parent_path = os.path.abspath(os.path.dirname(__file__))
-root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(parent_path))))
-sys.path.append(root_path)
+logging.basicConfig(
+    level=logging.DEBUG,  # Set the logging level
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+)
+
+sys.path.append(os.path.abspath("pipeline/airflow"))
+sys.path.append(os.path.abspath("."))
+
 from dags.src.download_data import (
     get_yfinance_data,
     get_fama_french_data,
@@ -27,12 +33,14 @@ from dags.src.handle_missing import fill_missing_values
 
 def plot_yfinance_time_series(data: pd.DataFrame):
 
+    logging.info("Plotting time series line chart for yfianance columns")
+
     data.set_index("date", inplace=True)
+    logging.debug("Set 'date' as index")
 
     yfinance_columns = ["open", "high", "low", "close", "volume"]
-
-    # Filtering to include only yfinance columns
     yfinance_data = data[yfinance_columns]
+    logging.debug(f"Filtered data to include only yfinance columns: {yfinance_columns}")
 
     num_rows = yfinance_data.shape[1]
 
@@ -45,13 +53,18 @@ def plot_yfinance_time_series(data: pd.DataFrame):
         axs[i].set_xlabel("Date")
         axs[i].set_ylabel(column)
         axs[i].legend()
+        logging.debug(f"Created subplot for {column}")
 
     plt.tight_layout()
-    ## make folder if not exist
-    if not os.path.exists("assets"):
-        os.makedirs("assets")
-    plt.savefig("../../assets/yfinance_time_series.png")
-    # plt.show()
+
+    if not os.path.exists("artifacts"):
+        os.makedirs("artifacts")
+        logging.info("Created 'artifacts' directory")
+
+    plt.savefig("artifacts/yfinance_time_series.png")
+    logging.info("Saved plot in artifacts'")
+
+    logging.info("Finished plotting yfinance time series")
 
 
 if __name__ == "__main__":

@@ -4,10 +4,10 @@ import numpy as np
 import sys
 import os
 
-# Add the src directory to the Python path
-sys.path.append(os.path.abspath("pipeline/airflow/dags/src"))
 
-from pipeline.airflow.dags.src.convert_column_dtype import convert_type_of_columns
+src_path = os.path.abspath("pipeline/airflow/dags/src")
+sys.path.append(src_path)
+from convert_column_dtype import convert_type_of_columns
 
 
 def test_convert_type_of_columns():

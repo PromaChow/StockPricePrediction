@@ -6,9 +6,9 @@ import os
 from datetime import datetime, timedelta
 
 # Add the src directory to the Python path
-sys.path.append(os.path.abspath("pipeline/airflow"))
-
-from dags.src.keep_latest_data import keep_latest_data
+src_path = os.path.abspath("pipeline/airflow/dags/src")
+sys.path.append(src_path)
+from keep_latest_data import keep_latest_data
 
 
 def test_keep_latest_data():
@@ -45,5 +45,6 @@ def test_keep_latest_data_empty_df():
 
 def test_keep_latest_data_single_day():
     single_day_df = pd.DataFrame({"date": [datetime.now()], "value": [1]})
+
     result = keep_latest_data(single_day_df, 5)
     assert len(result) == 1

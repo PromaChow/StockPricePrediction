@@ -6,10 +6,17 @@ import glob
 from datetime import datetime
 import sys
 import os
+import logging
 
-parent_path = os.path.abspath(os.path.dirname(__file__))
-root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(parent_path))))
-sys.path.append(root_path)
+
+logging.basicConfig(
+    level=logging.DEBUG,  # Set the logging level
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+)
+
+sys.path.append(os.path.abspath("pipeline/airflow"))
+sys.path.append(os.path.abspath("."))
+
 from dags.src.download_data import (
     get_yfinance_data,
     get_fama_french_data,
@@ -26,6 +33,13 @@ def keep_latest_data(data: pd.DataFrame, num_years: int) -> pd.DataFrame:
     cutoff_date = current_date - pd.DateOffset(years=num_years)
 
     filtered_data = data[data["date"] >= cutoff_date]
+
+    logging.debug(f"Filtered data contains {len(filtered_data)} rows as of cutoff date {cutoff_date}")
+
+    if filtered_data.empty:
+        logging.error("Filtered data is empty")
+    else:
+        logging.info("Data filtered successfully")
 
     return filtered_data
 
