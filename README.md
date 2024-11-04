@@ -3,37 +3,21 @@
 ## Description
 The primary goal of this project is to improve stock price forecasting and prediction by creating an effective Machine Learning Operations (MLOps) pipeline. Utilising sophisticated financial modelling methods like the GARCH and Kalman filters, the pipeline seeks to maximise model performance and increase the precision of stock volatility forecasts. In order to provide scalability and flexibility to new data and market trends, the project builds an automated pipeline that facilitates continuous integration and delivery of machine learning models. The system is able to react dynamically to shifting market conditions because of the smooth integration of fresh data made possible by this scalable MLOps architecture. In the end, this helps academics, data scientists, and financial analysts who want to use MLOps to make better investment decisions by producing forecasts that are more accurate.
 
-Here's a comprehensive README.md for your GitHub repository, including detailed instructions for setting up the environment, running the pipeline, code structure, reproducibility, and data versioning with DVC.
-
 ---
-
-## Table of Contents
-1. [Project Overview](#project-overview)
-2. [Environment Setup](#environment-setup)
-3. [Running the Pipeline](#running-the-pipeline)
-4. [Code Structure](#code-structure)
-5. [Reproducibility and Data Versioning](#reproducibility-and-data-versioning)
-6. [License](#license)
-
----
-
-## Project Overview
-
-This project performs automated data analysis on financial indices and economic indicators. It leverages data versioning with DVC and automates tasks using Apache Airflow, ensuring a scalable and reproducible data pipeline.
+## DataPipeline Assignment Phase
 
 **Key Features:**
-- Automated data ingestion and processing pipeline.
+- Airflow DAGs for data processing pipeline.
 - Correlation analysis and PCA for data insights and dimensionality reduction.
 - Visualization of financial time series data.
-
 ---
-## Code Structure
-
-The project is organized as follows:
-
-```
-
-# Financial Data Analysis Pipeline
+## Table of Contents
+1. [Project Structure](#project-structure)
+2. [Environment Setup](#environment-setup)
+3. [Running the Pipeline](#running-the-pipeline)
+4. [Test Functions](#test-functions)
+5. [Reproducibility and Data Versioning](#reproducibility-and-data-versioning)
+---
 
 ## Project Structure
 ```bash
@@ -57,7 +41,6 @@ The project is organized as follows:
 ├── README.md              # Project documentation
 └── current.txt            # Repo tree structure
 ```
-## DataPipeline Assignmnet Phase
 
 **Key Components:**
 - `data/`: Contains raw and processed datasets 
@@ -122,7 +105,12 @@ To execute the data pipeline, follow these steps:
 4. **Check Outputs**
    Once completed, check the output files and images in the `assets/` folder.
 ---
-
+## Running Tests
+   Run all tests in the `tests` directory
+   ```bash
+   pytest tests/
+   ```
+---
 ## Reproducibility and Data Versioning
 
 We used **DVC (Data Version Control)** for reproducibility and files management.
@@ -147,12 +135,5 @@ We used **DVC (Data Version Control)** for reproducibility and files management.
    ```bash
    dvc add <file-path>
    dvc push
-   ```
----
-
-#### Running Tests
-   Run all tests in the `tests` directory
-   ```bash
-   pytest tests/
    ```
 ---
