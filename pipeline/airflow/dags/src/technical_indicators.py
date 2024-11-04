@@ -10,9 +10,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 parent_path = os.path.abspath(os.path.dirname(__file__))
+# sys.path.append(os.path.dirname(os.path.dirname(parent_path)))
 
-root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(parent_path))))
-sys.path.append(root_path)
+sys.path.append(os.path.abspath("pipeline/airflow"))
+sys.path.append(os.path.abspath("."))
+
+
 from dags.src.download_data import (
     get_yfinance_data,
     get_fama_french_data,

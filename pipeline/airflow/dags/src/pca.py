@@ -11,10 +11,14 @@ import seaborn as sns
 
 from sklearn.decomposition import PCA
 
-parent_path = os.path.abspath(os.path.dirname(__file__))
+# parent_path = os.path.abspath(os.path.dirname(__file__))
 
-root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(parent_path))))
-sys.path.append(root_path)
+# root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(parent_path))))
+# sys.path.append(root_path)
+
+sys.path.append(os.path.abspath("pipeline/airflow"))
+sys.path.append(os.path.abspath("."))
+
 from dags.src.download_data import (
     get_yfinance_data,
     get_fama_french_data,
