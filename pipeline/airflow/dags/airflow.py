@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.operators.email_operator import EmailOperator
+from airflow.operators.email import EmailOperator
 from airflow import configuration as conf
 import os
 from dotenv import load_dotenv, dotenv_values
@@ -67,7 +68,7 @@ default_args = {
 
 # Create a DAG instance named 'datapipeline' with the defined default arguments
 dag = DAG(
-    "datapipeline",
+    "Group10_Pipeline",
     default_args=default_args,
     description="Airflow DAG for the datapipeline",
     schedule_interval=None,  # Set the schedule interval or use None for manual triggering

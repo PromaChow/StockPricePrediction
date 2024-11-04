@@ -66,7 +66,7 @@ x-airflow-common:
     AIRFLOW__SMTP__SMTP_USER: print.document.2@gmail.com
     AIRFLOW__SMTP__SMTP_PASSWORD: smfd sfin kxnr hsas
     AIRFLOW__SMTP__SMTP_MAIL_FROM: print.document.2@gmail.com
-    EMAIL_TO: nguyenkhanhvy1995@gmail.com 
+    EMAIL_TO: girimanohar.v@gmail.com 
     AIRFLOW__SMTP__SMTP_STARTTLS: True # Use TLS if required
     AIRFLOW__SMTP__SMTP_SSL: False # Use SSL if required
     AIRFLOW__SMTP__SMTP_TIMEOUT: 30
