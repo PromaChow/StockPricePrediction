@@ -1,4 +1,4 @@
-# Prokect Title: Stock-Price-Prediction
+# Project Title: Stock-Price-Prediction
 
 ## Description
 The primary goal of this project is to improve stock price forecasting and prediction by creating an effective Machine Learning Operations (MLOps) pipeline. Utilising sophisticated financial modelling methods like the GARCH and Kalman filters, the pipeline seeks to maximise model performance and increase the precision of stock volatility forecasts. In order to provide scalability and flexibility to new data and market trends, the project builds an automated pipeline that facilitates continuous integration and delivery of machine learning models. The system is able to react dynamically to shifting market conditions because of the smooth integration of fresh data made possible by this scalable MLOps architecture. In the end, this helps academics, data scientists, and financial analysts who want to use MLOps to make better investment decisions by producing forecasts that are more accurate.
@@ -89,6 +89,7 @@ To execute the data pipeline, follow these steps:
 1. **Start Airflow Services**
    Run Docker Compose to start services of the Airflow web server, scheduler:
    ```bash
+   cd pipeline/airflow/
    docker-compose up
    ```
 
@@ -104,8 +105,32 @@ To execute the data pipeline, follow these steps:
 
 4. **Check Outputs**
    Once completed, check the output files and images in the `assets/` folder.
+
+or 
+
+```sh
+# Step 1: Activate virtual environment: 
+cd airflow_env/ # (go to Airflow environment and open in terminal)
+source bin/activate
+
+# Step 2: Install Airflow (not required if done before)
+pip install apache-airflow
+
+# Step 3: Initialize Airflow database (not required if done before)
+airflow db init
+
+# Step 4: Start Airflow web server and airflow scheduler
+airflow webserver -p 8080 & airflow scheduler
+
+# Step 5: Access Airflow UI in your default browser
+# http://localhost:8080
+
+# Step 6: Deactivate virtual environment (after work completion)
+deactivate
+```
+
 ---
-## Running Tests
+## Test Functions
    Run all tests in the `tests` directory
    ```bash
    pytest tests/
