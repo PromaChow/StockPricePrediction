@@ -4,6 +4,7 @@ This section explains dags pipeline implemented using Apache Airflow for workflo
 
 ## Table of Contents
 - [Directory Structure](#directory-structure)
+- [Airflow Implementation] (#airflow-implementation)
 - [Pipeline Components](#pipeline-components)
 - [Setup and Usage](#setup-and-usage)
 - [Data Sources](#data-sources)
@@ -15,7 +16,7 @@ This section explains dags pipeline implemented using Apache Airflow for workflo
 ```
 .
 ├── airflow
-│   ├── artifacts                     # Output Visualization files
+│   ├── artifacts                    
 │   │   ├── correlation_matrix_after_removing_correlated_features.png
 │   │   ├── pca_components.png
 │   │   └── yfinance_time_series.png
@@ -46,11 +47,65 @@ This section explains dags pipeline implemented using Apache Airflow for workflo
 │   └── working_data                  
 └── pipelinetree.txt                  # Airflow working structure
 ```
+### Airflow Implementation
+
+The Airflow DAG (`Group10_DataPipeline_MLOps`) was successfully implemented and tested, with all tasks executing as expected. The following details summarize the pipeline's performance and execution.
+
+#### DAG Run Summary
+- **Total Runs**: 1
+- **Last Run**: 2024-11-05 05:34:59 UTC
+- **Run Status**: Success
+- **Run Duration**: 00:00:40
+
+![DAG Run Summary](StockPricePrediction/assets/airflow_dags.jpeg)
+
+#### Task Overview
+The DAG consists of 13 tasks, each representing a distinct step in the data processing and feature engineering pipeline. Key tasks include:
+1. `download_data_task` - Download initial datasets
+2. `convert_data_task` - Convert data types as required
+3. `handle_missing_values_task` - Handle missing data values
+4. `add_feature_interactions_task` - Generate interaction features
+5. `visualize_pca_components_task` - PCA visualization
+6. `send_email_task` - Send success/failure notifications
+
+All tasks completed successfully with minimal execution time per task, indicating efficient pipeline performance.
+
+#### Execution Graph and Gantt Chart
+The **Execution graph** confirms that tasks were executed sequentially and completed successfully (marked in green), showing no deferred, failed, or skipped tasks. The **Gantt chart** illustrates the time taken by each task and confirms that the pipeline completed within the expected duration.
+
+#### Execution Graph
+![Execution Graph](assets/airflow_graph.jpeg)
+
+#### Gantt Chart
+![Gantt Chart](assets/gantt.jpeg)
+
+#### Task Logs
+Detailed logs for each task provide insights into the processing steps, including correlation matrix updates, data handling operations, and confirmation of successful execution steps. 
+
+![Task Logs](assets/airflow_logging.jpeg)
+
+#### Email Notifications 
+ **Anomoly Detection**
+Automated email notifications were configured to inform the team of task success or failure. As shown in the sample emails, each run completed with a success message confirming the full execution of the DAG tasks.
+
+![Email Notifications](assets/email_notification.jpeg)
+
+#### Testing Summary
+The pipeline scripts were validated with 46 unit tests using `pytest`. All tests passed with zero errors. This main tests cover critical modules such as:
+- `test_handle_missing.py`
+- `test_feature_interactions.py`
+- `test_plot_yfinance_time_series.py`
+
+![Test Summary](assets/test_functions.jpeg)
+
+These tests ensure the stability and accuracy of data transformations, visualizations, and feature engineering processes.
+
+---
 
 ### Pipeline Components
 
 1. **Data Extraction**:
-   - `download_data.py`: Downloads datasets from various financial sources and saves them in the `data` directory.
+   - `download_data.py`: Downloads datasets from various financial sources and load and save from/to `data` directory.
 
 2. **Data Preprocessing**:
    - `convert_column_dtype.py`: Converts data types for efficient processing.
