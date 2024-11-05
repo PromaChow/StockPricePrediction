@@ -1,9 +1,16 @@
 .
 ├── assets
+│   ├── airflow_dags.jpeg
+│   ├── airflow_graph.jpeg
+│   ├── airflow_logging.jpeg
 │   ├── correlation_matrix_after_removing_correlated_features.png
-│   ├── MLOps Group10 Diagram.drawio.png
+│   ├── email_notification.jpeg
+│   ├── gantt.jpeg
+│   ├── gcpbucket.png
+│   ├── MLOps Group10 Diag.png
 │   ├── pca_components.png
 │   ├── pca_components.png.dvc
+│   ├── test_functions.jpeg
 │   └── yfinance_time_series.png
 ├── Assignments_Submissions
 │   ├── DataPipeline Phase
@@ -129,7 +136,8 @@
 │   ├── data_preprocessing.ipynb
 │   ├── DataSchema_Stats.ipynb
 │   ├── Feature Engineering.ipynb
-│   └── PROJECT_DATA_CLEANING.ipynb
+│   ├── PROJECT_DATA_CLEANING.ipynb
+│   └── README.md
 ├── src.dvc
 ├── test.dvc
 └── tests
@@ -146,4 +154,4 @@
     ├── test_scaler.py
     └── test_technical_indicators.py
 
-25 directories, 122 files
+25 directories, 130 files

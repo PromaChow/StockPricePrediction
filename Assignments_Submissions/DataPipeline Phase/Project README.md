@@ -8,7 +8,6 @@ The primary goal of this project is to improve stock price forecasting and predi
 
 > Refer for [Airflow Pipeline README](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/Manohar/pipeline/README.md)
 
->Refer [All README files](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/tree/Manohar/Assignments_Submissions/DataPipeline%20Phase) 
 
 **Key Features:**
 - Airflow DAGs for data processing pipeline.
