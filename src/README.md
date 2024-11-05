@@ -20,12 +20,51 @@ This notebook is focused on preparing data for further analysis:
 - **Visualization**: Provides data insights with visualizations to understand distributions and detect potential issues.
 
 ### 3. `DataSchema_Stats.ipynb`
+Here's a breakdown of README on validating data quality, including both a general overview and specific details related to schema and statistics generation.
+---
 
-This notebook provides a comprehensive overview of the data schema and statistics:
-- **Descriptive Statistics**: Calculates statistics such as mean, median, standard deviation, etc., for each feature.
-- **Schema Consistency Checks**: Validates that the data structure is consistent across different datasets.
-- **Anomaly Detection**: Identifies unusual or out-of-bound values that may need correction.
-- **Feature Distributions**: Visualizes the distribution of each feature to ensure normality and detect skewness or other issues.
+### Data Validation: Schema and Statistics Generation
+
+Data quality validation ensures that data aligns with expected standards before processing or analysis. This process helps identify and mitigate issues early, enabling cleaner datasets and more reliable insights. The validation process primarily involves **schema validation** and **statistics generation**.
+
+---
+
+#### General Overview
+
+1. **Schema Validation**: Ensures that the dataset's structure (columns, data types, and constraints) matches predefined standards. This step verifies column names, data types, allowable value ranges, nullability, and unique constraints.
+
+2. **Statistics Generation**: Provides a comprehensive summary of each dataset's characteristics, such as mean, median, standard deviation, and distribution of values. These metrics reveal potential anomalies, like outliers or unexpected distributions, which could indicate data issues.
+
+3. **Data Quality Checks**: Regularly generating statistics and performing schema checks ensures that data quality remains consistent over time, especially when working with evolving data sources.
+
+---
+
+#### Specific Details
+
+1. **Schema Validation Process**:
+   - **Define Expected Schema**: Specify structure of our dataset, including column names, data types (e.g., integer, float, string), and constraints (e.g., non-null, unique).
+   - **Validate Data Types**: Ensured each column’s data type aligns with the expected schema. Mismatched data types (e.g., string data in a numeric column) are flagged as issues.
+   - **Check Null Values and Constraints**: Validate the presence or absence of null values based on predefined rules. For example, critical columns marked as non-null must not contain any missing values.
+   - **Identify Unique Violations**: If columns are expected to contain unique values (e.g., IDs), check for duplicates. Duplicate records often indicate data integrity issues.
+
+2. **Statistics Generation Process**:
+   - **Descriptive Statistics**: Common metrics like mean, median, mode, minimum, maximum, and standard deviation. These measures help evaluate whether values are within an acceptable range.
+   - **Frequency and Distribution Analysis**: Assess the frequency of categorical values and the distribution of numerical values. Unusual patterns, such as skewed distributions or unexpected categories, may indicate data issues.
+   - **Outlier Detection**: Identify outliers, which could result from data entry errors or represent exceptional cases that need separate handling.
+   - **Completeness and Consistency Checks**: Measure the proportion of missing data in each column, and assess consistency across.
+
+3. **Anomalies Detection**
+
+    - **Missing Value Analysis**: Identifies any fields with missing data. Depending on the importance and the context of the field, the missing values might be filled using statistical methods (e.g., mean, median) or flagged for further inspection.
+
+    - **Outlier Detection**: Employs statistical methods to detect outliers within numerical data. Calculating z-scores or leveraging the Interquartile Range (IQR) to find values that deviate significantly from the central tendency of the data, suggesting possible anomalies.
+
+---
+
+1. **Data Completeness**: Ensure all required columns are present and contain no null values (or as expected).
+2. **Data Consistency**: Use consistent data types and expected value ranges.
+3. **Statistical Expectations**: Ensure statistical summaries align with domain knowledge (e.g., average values fall within expected ranges).
+4. **Outlier Management**: Define thresholds for acceptable data points and set rules for handling extreme values.
 
 ### 4. `Feature Engineering.ipynb`
 

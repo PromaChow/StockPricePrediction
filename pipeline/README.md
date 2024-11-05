@@ -85,7 +85,7 @@ Detailed logs for each task provide insights into the processing steps, includin
 ![Task Logs](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/airflow_logging.jpeg)
 
 #### Email Notifications 
- **Anomoly Detection**
+ **Anomoly Detection and Automated Alert**
 Automated email notifications were configured to inform the team of task success or failure. As shown in the sample emails, each run completed with a success message confirming the full execution of the DAG tasks.
 
 ![Email Notifications](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/email_notification.jpeg)

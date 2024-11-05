@@ -11,8 +11,11 @@ The primary goal of this project is to improve stock price forecasting and predi
 >Refer [All README files](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/tree/Manohar/Assignments_Submissions/DataPipeline%20Phase) 
 
 **Key Features:**
-- Airflow DAGs for data processing pipeline.
-- Correlation analysis and PCA for data insights and dimensionality reduction.
+- Airflow DAGs for data processing pipeline, with Error Handling and Logging
+- DVC for version control and data management.
+- Tacking and logging, sending automated mail.
+- Ability to detect and migate bias in data.
+- Test Modules with pytest with no errors.
 - Visualization of financial time series data.
 ---
 ## Table of Contents
