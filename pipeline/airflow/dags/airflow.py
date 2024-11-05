@@ -75,7 +75,7 @@ default_args = {
 
 # Create a DAG instance named 'datapipeline' with the defined default arguments
 dag = DAG(
-    "Group10_Pipeline",
+    "Group10_DataPipeline_MLOps",
     default_args=default_args,
     description="Airflow DAG for the datapipeline",
     schedule_interval=None,  # Set the schedule interval or use None for manual triggering
