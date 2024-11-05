@@ -26,9 +26,8 @@ def sample_data():
     return data
 
 
-def test_add_technical_indicators():
-    data = sample_data()
-    result = add_technical_indicators(data)
+def test_add_technical_indicators(sample_data):
+    result = add_technical_indicators(sample_data)
 
     # Check if new columns are added
     new_columns = ["RSI", "MACD", "MACD_signal", "MA20", "BB_upper", "BB_lower"]
@@ -49,7 +48,7 @@ def test_add_technical_indicators():
     assert not result.isnull().any().any()
 
     # Check if the number of rows is less than the original (due to NaN dropping)
-    assert len(result) < len(data)
+    assert len(result) < len(sample_data)
 
 
 def test_add_technical_indicators_constant_price():
