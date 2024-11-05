@@ -74,7 +74,21 @@
 │   │       ├── latest -> /opt/airflow/logs/scheduler/2024-11-04
 │   │       └── latest~HEAD
 │   ├── plugins
+│   ├── tests
+│   │   ├── test_convert_column_dtype.py
+│   │   ├── test_correlation.py
+│   │   ├── test_download_data.py
+│   │   ├── test_feature_interaction.py
+│   │   ├── test_handle_missing.py
+│   │   ├── test_keep_latest_data.py
+│   │   ├── test_lagged_features.py
+│   │   ├── test_pca.py
+│   │   ├── test_plot_yfinance_time_series.py
+│   │   ├── test_remove_weekend_data.py
+│   │   ├── test_scaler.py
+│   │   └── test_technical_indicators.py
 │   └── working_data
-└── pipelinetree.txt
+├── pipelinetree.txt
+└── README.md
 
-13 directories, 65 files
+14 directories, 78 files

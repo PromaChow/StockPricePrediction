@@ -4,7 +4,7 @@ This section explains dags pipeline implemented using Apache Airflow for workflo
 
 ## Table of Contents
 - [Directory Structure](#directory-structure)
-- [Airflow Implementation] (#airflow-implementation)
+- [Airflow Implementation](#airflow-implementation)
 - [Pipeline Components](#pipeline-components)
 - [Setup and Usage](#setup-and-usage)
 - [Data Sources](#data-sources)
@@ -57,10 +57,10 @@ The Airflow DAG (`Group10_DataPipeline_MLOps`) was successfully implemented and 
 - **Run Status**: Success
 - **Run Duration**: 00:00:40
 
-![DAG Run Summary](StockPricePrediction/assets/airflow_dags.jpeg)
+![DAG Run Summary](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/airflow_dags.jpeg)
 
 #### Task Overview
-The DAG consists of 13 tasks, each representing a distinct step in the data processing and feature engineering pipeline. Key tasks include:
+The DAG consists of 13 tasks, each representing a step in data processing and feature engineering pipeline. Key tasks include:
 1. `download_data_task` - Download initial datasets
 2. `convert_data_task` - Convert data types as required
 3. `handle_missing_values_task` - Handle missing data values
@@ -74,21 +74,21 @@ All tasks completed successfully with minimal execution time per task, indicatin
 The **Execution graph** confirms that tasks were executed sequentially and completed successfully (marked in green), showing no deferred, failed, or skipped tasks. The **Gantt chart** illustrates the time taken by each task and confirms that the pipeline completed within the expected duration.
 
 #### Execution Graph
-![Execution Graph](assets/airflow_graph.jpeg)
+![Execution Graph](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/airflow_graph.jpeg)
 
 #### Gantt Chart
-![Gantt Chart](assets/gantt.jpeg)
+![Gantt Chart](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/gantt.jpeg)
 
 #### Task Logs
 Detailed logs for each task provide insights into the processing steps, including correlation matrix updates, data handling operations, and confirmation of successful execution steps. 
 
-![Task Logs](assets/airflow_logging.jpeg)
+![Task Logs](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/airflow_logging.jpeg)
 
 #### Email Notifications 
  **Anomoly Detection**
 Automated email notifications were configured to inform the team of task success or failure. As shown in the sample emails, each run completed with a success message confirming the full execution of the DAG tasks.
 
-![Email Notifications](assets/email_notification.jpeg)
+![Email Notifications](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/email_notification.jpeg)
 
 #### Testing Summary
 The pipeline scripts were validated with 46 unit tests using `pytest`. All tests passed with zero errors. This main tests cover critical modules such as:
@@ -96,7 +96,7 @@ The pipeline scripts were validated with 46 unit tests using `pytest`. All tests
 - `test_feature_interactions.py`
 - `test_plot_yfinance_time_series.py`
 
-![Test Summary](assets/test_functions.jpeg)
+![Test Summary](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/test_functions.jpeg)
 
 These tests ensure the stability and accuracy of data transformations, visualizations, and feature engineering processes.
 
