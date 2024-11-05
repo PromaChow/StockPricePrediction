@@ -1,31 +1,57 @@
 stages:
-  preprocess:
-    cmd: python src/dataapi.py data/raw/dataset.csv data/preprocessed/preprocess_data.ipynb
+  download_data:
+    cmd: python dags/src/download_data.py
     deps:
-    - data/raw/dataset.csv
-    - data/preprocessed/preprocess_data.ipynb
+      - dags/data/ADS_index.csv
+      - dags/data/fama_french.csv
     outs:
-    - data/preprocessed
+      - dags/data/merged_original_dataset.csv
+
+  handle_missing:
+    cmd: python dags/src/handle_missing.py
+    deps:
+      - dags/data/merged_original_dataset.csv
+    outs:
+      - dags/working_data/cleaned_dataset.csv
+
+  convert_dtype:
+    cmd: python dags/src/convert_column_dtype.py
+    deps:
+      - dags/working_data/cleaned_dataset.csv
+    outs:
+      - dags/working_data/converted_dataset.csv
+
+  remove_weekend_data:
+    cmd: python dags/src/remove_weekend_data.py
+    deps:
+      - dags/working_data/converted_dataset.csv
+    outs:
+      - dags/working_data/weekend_removed.csv
+
   feature_engineering:
-    cmd: python pipeline/airflow/dags/src/feature_interactions.py data/preprocessed/merged_original_dataset.csv
-      data/features
+    cmd: python dags/src/lagged_features.py && python dags/src/feature_interactions.py
     deps:
-    - data/preprocessed/merged_original_dataset.csv
-    - pipeline/airflow/dags/src/feature_interactions.py
+      - dags/working_data/weekend_removed.csv
     outs:
-    - data/features
-  plot_yfinance:
-    cmd: python pipeline/airflow/dags/src/plot_yfinance_time_series.py data/preprocessed
-      assets/yfinance_time_series.png
+      - dags/working_data/feature_engineered_dataset.csv
+
+  correlation_analysis:
+    cmd: python dags/src/correlation.py
     deps:
-    - data/preprocessed
-    - pipeline/airflow/dags/src/plot_yfinance_time_series.py
+      - dags/working_data/feature_engineered_dataset.csv
     outs:
-    - assets/yfinance_time_series.png
-  deploy:
-    cmd: python pipeline/airflow/dags/airflow.py
+      - dags/artifacts/correlation_matrix_after_removing_correlated_features.png
+
+  pca:
+    cmd: python dags/src/pca.py
     deps:
-    - models/
-    - pipeline/airflow/dags/airflow.py
+      - dags/working_data/feature_engineered_dataset.csv
     outs:
-    - pipeline/airflow/dags/logs/output.log
+      - dags/artifacts/pca_components.png
+
+  plot_time_series:
+    cmd: python dags/src/plot_yfinance_time_series.py
+    deps:
+      - dags/working_data/feature_engineered_dataset.csv
+    outs:
+      - dags/artifacts/yfinance_time_series.png
