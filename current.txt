@@ -14,6 +14,9 @@
 │   └── yfinance_time_series.png
 ├── Assignments_Submissions
 │   ├── DataPipeline Phase
+│   │   ├── Airflow README.md
+│   │   ├── Notebooks README.md
+│   │   └── Project README.md
 │   └── Scoping Phase
 │       ├── Data Collection Group 10.pdf
 │       ├── errors-failure Group 10.pdf
@@ -34,7 +37,6 @@
 │   └── application_default_credentials.json
 ├── LICENSE
 ├── LICENSE.dvc
-├── MLOps Group10 Diagram.drawio.xml
 ├── models
 ├── pipeline
 │   ├── airflow
@@ -47,6 +49,7 @@
 │   │   │   ├── data
 │   │   │   │   ├── ADS_index.csv
 │   │   │   │   ├── fama_french.csv
+│   │   │   │   ├── final_dataset.csv
 │   │   │   │   ├── FRED_Variables
 │   │   │   │   │   ├── AMERIBOR.csv
 │   │   │   │   │   ├── BAMLH0A0HYM2.csv
@@ -109,7 +112,7 @@
 │   │   ├── dvc.yaml
 │   │   ├── logs
 │   │   │   └── scheduler
-│   │   │       ├── latest -> /opt/airflow/logs/scheduler/2024-11-04
+│   │   │       ├── latest -> /opt/airflow/logs/scheduler/2024-11-05
 │   │   │       └── latest~HEAD
 │   │   ├── plugins
 │   │   ├── tests
@@ -154,4 +157,4 @@
     ├── test_scaler.py
     └── test_technical_indicators.py
 
-25 directories, 130 files
+25 directories, 133 files

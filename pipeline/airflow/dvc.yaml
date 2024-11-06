@@ -2,56 +2,51 @@ stages:
   download_data:
     cmd: python dags/src/download_data.py
     deps:
+      - dags/src/download_data.py
+    outs:
+      - dags/data/merged_original_dataset.csv
+
+  handle_missing_data:
+    cmd: python dags/src/handle_missing.py
+    deps:
+      - dags/src/handle_missing.py
       - dags/data/ADS_index.csv
       - dags/data/fama_french.csv
     outs:
-      - dags/data/merged_original_dataset.csv
-
-  handle_missing:
-    cmd: python dags/src/handle_missing.py
-    deps:
-      - dags/data/merged_original_dataset.csv
-    outs:
-      - dags/working_data/cleaned_dataset.csv
-
-  convert_dtype:
-    cmd: python dags/src/convert_column_dtype.py
-    deps:
-      - dags/working_data/cleaned_dataset.csv
-    outs:
-      - dags/working_data/converted_dataset.csv
-
-  remove_weekend_data:
-    cmd: python dags/src/remove_weekend_data.py
-    deps:
-      - dags/working_data/converted_dataset.csv
-    outs:
-      - dags/working_data/weekend_removed.csv
-
-  feature_engineering:
-    cmd: python dags/src/lagged_features.py && python dags/src/feature_interactions.py
-    deps:
-      - dags/working_data/weekend_removed.csv
-    outs:
-      - dags/working_data/feature_engineered_dataset.csv
+      - dags/data/final_dataset.csv
 
   correlation_analysis:
     cmd: python dags/src/correlation.py
     deps:
-      - dags/working_data/feature_engineered_dataset.csv
+      - dags/src/correlation.py
+      - dags/data/final_dataset.csv
+      - dags/data/merged_original_dataset.csv
     outs:
-      - dags/artifacts/correlation_matrix_after_removing_correlated_features.png
+      - artifacts/correlation_matrix_after_removing_correlated_features.png
 
-  pca:
+  pca_analysis:
     cmd: python dags/src/pca.py
     deps:
-      - dags/working_data/feature_engineered_dataset.csv
+      - dags/src/pca.py
+      - dags/data/merged_original_dataset.csv
+      - dags/data/final_dataset.csv
     outs:
-      - dags/artifacts/pca_components.png
+      - artifacts/pca_components.png
 
   plot_time_series:
     cmd: python dags/src/plot_yfinance_time_series.py
     deps:
-      - dags/working_data/feature_engineered_dataset.csv
+      - dags/src/plot_yfinance_time_series.py
+      - dags/data/merged_original_dataset.csv
+      - dags/data/final_dataset.csv
     outs:
-      - dags/artifacts/yfinance_time_series.png
+      - artifacts/yfinance_time_series.png
+
+  lagged_features:
+    cmd: python dags/src/lagged_features.py
+    deps:
+      - dags/src/lagged_features.py
+      - dags/data/merged_original_dataset.csv
+      - dags/data/final_dataset.csv
+    outs:
+      - dags/data/lagged_features.csv
