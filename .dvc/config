@@ -1,5 +1,5 @@
 [core]
-    remote = gcs_remote
+    remote = myremote
     autostage = true
 ['remote "myremote"']
     url = gs://stock_price_prediction_dataset/DVC

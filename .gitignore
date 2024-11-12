@@ -295,9 +295,4 @@ pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python
 # pipeline/airflow/.env
-
-/requirements.txt
-/src
-/README.md
-/Assignments_Submissions
-/current.txt
+/striped-graph-440017-d7-79f99f8253bc.json
