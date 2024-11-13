@@ -12,14 +12,11 @@ stages:
       - dags/src/handle_missing.py
       - dags/data/ADS_index.csv
       - dags/data/fama_french.csv
-    outs:
-      - dags/data/final_dataset.csv
 
   correlation_analysis:
     cmd: python dags/src/correlation.py
     deps:
       - dags/src/correlation.py
-      - dags/data/final_dataset.csv
       - dags/data/merged_original_dataset.csv
     outs:
       - artifacts/correlation_matrix_after_removing_correlated_features.png
@@ -29,7 +26,6 @@ stages:
     deps:
       - dags/src/pca.py
       - dags/data/merged_original_dataset.csv
-      - dags/data/final_dataset.csv
     outs:
       - artifacts/pca_components.png
 
@@ -38,15 +34,5 @@ stages:
     deps:
       - dags/src/plot_yfinance_time_series.py
       - dags/data/merged_original_dataset.csv
-      - dags/data/final_dataset.csv
     outs:
       - artifacts/yfinance_time_series.png
-
-  lagged_features:
-    cmd: python dags/src/lagged_features.py
-    deps:
-      - dags/src/lagged_features.py
-      - dags/data/merged_original_dataset.csv
-      - dags/data/final_dataset.csv
-    outs:
-      - dags/data/lagged_features.csv
