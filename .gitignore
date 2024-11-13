@@ -6,7 +6,7 @@ aws/
 #*.dvc
 #.dvc/
 .dvc/cache/
-.dvc/tmp/
+
 ### JupyterNotebooks ###
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/
@@ -296,3 +296,5 @@ pyrightconfig.json
 # End of https://www.toptal.com/developers/gitignore/api/python
 # pipeline/airflow/.env
 /striped-graph-440017-d7-79f99f8253bc.json
+miniconda3
+GCP/striped-graph-440017-d7-79f99f8253bc.json

@@ -1,3 +1,12 @@
+Bucket: gcf-v2-sources-771172817312-us-east1
+cloud-trigger-data
+  function-source.zip
+
+
+Bucket: gcf-v2-uploads-771172817312-us-east1
+d04f28ad-c506-4101-817f-b1c62c64e803.zip
+
+
 Bucket: stock_price_prediction_dataset
 DVC
   
@@ -7,8 +16,12 @@ DVC
         b2f65a78688d3e02cd1be5ff35b027
       01
         0a91294324fa9455890c8664464208
+      02
+        686ef34261bffe0910b0d8895c314b
       0d
         249287c3a977c179ea4d737465e2bd
+      0f
+        8ed73aa2b6559377a18220a55eb998
       12
         52f4e4135d4bf2e251f51c9d3e1a15.dir
       18
@@ -21,6 +34,8 @@ DVC
         820732fffe9a07d2b60db4d04901c0
       1d
         cce21c382ceb4196933531da242a5b
+      21
+        ed1e533f9a5ad7b0984842a0b5143a
       23
         0e90d16b6d38cbae0019d62c372ad9
       26
@@ -39,6 +54,8 @@ DVC
         db0f08cedf931610a5f08ef1f3bf8d.dir
       43
         b6488d7b26b6c361101f56c3b16c8d
+      4b
+        3ab5e0daba788980a8fa7720274bec
       4c
         69076cfca52511b91ade2a24cdc0ca
       4e
@@ -50,6 +67,10 @@ DVC
         8e1b0debd4fae2d25bd525c0e7e31f
       5a
         d2208d8fd1a3b09f0274d80b19853b
+      5b
+        68b325d5c791ee3981685385cc190f
+      61
+        f3f4ac825af1d58584e70c3e191be6
       62
         a27affb01d76de691ec6362e0db52c
       64
@@ -57,11 +78,14 @@ DVC
       65
         87bf75a7cc1f6db67460d121a6f997
         e57926f4606c68730d243de175b219
+      68
+        319992a64b2f1283bfeb516bb00e78
       69
         414b772def6af0373789c0f4d9e97f
       6c
         8da018fe7441094cf5282c499b457f
       6f
+        21deb251577e14acc627a0d4f4bc60
         efc1ffdcec6975cc76d44b249c8c20
       71
         0b22dac2ef339391b4db1d1156ffb4
@@ -70,12 +94,18 @@ DVC
       75
         0eae632c3c59a86e27e305b348106f
         2d41c7ece58d400ef7cdee1ea861bf
+      76
+        cd7e68e9d62e757b8245f919eb12c2
       78
         03d509a2b02d8f0e3f68be81861920
         9e46c042ca0078de5f5616fa148e2b
+      7a
+        ff627ae3f036ce4e598c6e1ebd27d4
       7c
         605eb5473eeba85716c90631e1370f.dir
+        dc250dfe088372c94e073d99e2fd86.dir
       7f
+        9eb78bad5b16a88707ba21ddd8e9f5
         f0d06e94a3f2a6e75f57428d739767
       86
         de7bbbe59a8c06e3a023ae95d6b385.dir
@@ -89,6 +119,8 @@ DVC
         a91016c8f253eba682ceca59128026
       8e
         bdc129516a30b60742c355c73565db
+      96
+        2cf49588fcd2f36cfefe61682d4a0c.dir
       99
         083257c4363bbc2e460ac836f82b96.dir
         655d7c0717bb9bbe09b7b50e4e4420
@@ -105,6 +137,10 @@ DVC
         6bcade213b0c739167a8e22ca0fe38
       ab
         8aa47a45bb548cbd9c6d8efe5e5da2
+      ae
+        1a9eba08eaccabdb8b7be11fe405da
+      b0
+        076fa278916e54c94268a15676243b
       b3
         18d1ddc24c377b097bffca13471b90
       b4
@@ -115,21 +151,35 @@ DVC
         ca7c25f155f310e865b75e39c8cc99
       bd
         04d71b318926695e81915a7ba14726
+      be
+        6be482cb98a9213f75366e3f0802a3
       c2
         827c79e1fc7cf3130da44ddc2ebfa4.dir
+      c3
+        c20928918c55c856b81daa9fac2a16
+      c9
+        652ae3aea5ae8916de3f80e03257c6
       ca
         a520c73ea398e6a9133c7ebbb63cd8
         c6d413eafcd382ed62c4a623a6d89e
       d4
         1d8cd98f00b204e9800998ecf8427e
+      d5
+        0ad11d7e7e71f977112060e515a3ef
       dd
         9e8687243e940cb60730b3b3950da0
       e1
         46c5534f58d3c11ab1bd767912a997
+      e3
+        30d7fcfc691c7bee4df890e9a3fad7
+      e7
+        9b8402e5e91dd3191dc2bd30e2a270
       eb
         bf36e2b8bb5e4001f2f1e0029f3fa2
       ed
         c7e5bb869a745d327315924a20e7da
+      ee
+        800e5bcd2d3b976634616787f5c11b
       ef
         7d94343cbecf17f1894760dd7b4af1
       f0
@@ -137,6 +187,7 @@ DVC
       f2
         b67c60a1187b88a0e75497ffde7ac3
       f4
+        b2408d894a23cbb894e684efe9a02e.dir
         b6a23e8f6a6cf6e54a604e58642639
       f9
         bcf17402eadb8705837fb2af0c06b0.dir
@@ -151,10 +202,48 @@ Data
     yfinance_time_series.png
   data
     ADS_Index.csv
+    FRED_Variables
+      AMERIBOR.csv
+      BAMLH0A0HYM2.csv
+      BAMLH0A0HYM2EY.csv
+      CBBTCUSD.csv
+      CBETHUSD.csv
+      DAAA.csv
+      DBAA.csv
+      DCOILBRENTEU.csv
+      DCOILWTICO.csv
+      DCPF1M.csv
+      DCPN3M.csv
+      DEXJPUS.csv
+      DEXUSEU.csv
+      DEXUSUK.csv
+      DGS1.csv
+      DGS10.csv
+      DHHNGSP.csv
+      NIKKEI225.csv
+      OBMMIJUMBO30YF.csv
+      RIFSPPFAAD90NB.csv
+      T10Y3M.csv
+      T10YIE.csv
+      T5YIE.csv
+      USRECD.csv
+      USRECDM.csv
+      USRECDP.csv
+      VIXCLS.csv
     fama_french.csv
+    final_dataset.csv
+    formatted_datasets
+      ads_index.csv
+      fama_french.csv
+      fred_variables.csv
+      historical_data.csv
+      sp500.csv
+    merged_original_dataset.csv
     preprocessed
       final_dataset.csv
       merged_original_dataset.csv
+  models
+    cleaned_data.csv
   pipeline
     airflow
       artifacts
