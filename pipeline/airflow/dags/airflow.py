@@ -27,6 +27,10 @@ from src.feature_interactions import add_feature_interactions
 from src.technical_indicators import add_technical_indicators
 from src.scaler import scaler
 from src.pca import visualize_pca_components
+from src.upload_blob import upload_blob
+from src.models.linear_regression import time_series_regression_pipeline
+from src.models.LSTM import grid_search_lstm
+from src.models.XGBoost import train_xgboost_with_metrics
 
 load_dotenv()
 import os
@@ -193,6 +197,35 @@ visualize_pca_components_task = PythonOperator(
     dag=dag,
 )
 
+# Task to upload the data to Google Cloud Storage
+upload_blob_task = PythonOperator(
+    task_id="upload_blob_task",
+    python_callable=upload_blob,
+    op_args=[scaler_task.output],
+    dag=dag,
+)
+
+linear_regression_model_task = PythonOperator(
+    task_id="linear_regression_model_task",
+    python_callable=time_series_regression_pipeline,
+    op_args=[scaler_task.output],
+    dag=dag,
+)
+
+lstm_model_task = PythonOperator(
+    task_id="lstm_model_task",
+    python_callable=grid_search_lstm,
+    op_args=[scaler_task.output],
+    dag=dag,
+)
+
+xgboost_model_task = PythonOperator(
+    task_id="xgboost_model_task",
+    python_callable=train_xgboost_with_metrics,
+    op_args=[scaler_task.output],
+    dag=dag,
+)
+
 # Set task dependencies
 (
     download_data_task
@@ -207,6 +240,10 @@ visualize_pca_components_task = PythonOperator(
     >> add_technical_indicators_task
     >> scaler_task
     >> visualize_pca_components_task
+    >> upload_blob_task
+    >> linear_regression_model_task
+    >> lstm_model_task
+    >> xgboost_model_task
     >> send_email_task
 )
 
