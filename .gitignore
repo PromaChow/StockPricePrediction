@@ -298,3 +298,4 @@ pyrightconfig.json
 
 
 pipeline/airflow/artifacts/*.pkl
+pipeline/airflow/dags/service_key_gcs.json
