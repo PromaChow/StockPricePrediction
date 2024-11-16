@@ -3,8 +3,7 @@ import pandas as pd
 import sys
 import os
 import logging
-
-# import shap
+import shap
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split, TimeSeriesSplit, GridSearchCV
 from sklearn.linear_model import Ridge, Lasso, ElasticNet
@@ -35,7 +34,6 @@ from dags.src.technical_indicators import add_technical_indicators
 from dags.src.scaler import scaler
 from dags.src.upload_blob import upload_blob
 from dags.src.models.model_utils import save_and_upload_model, upload_artifact
-from dags.src.wandb_log import *
 
 
 # Define the data preparation function
@@ -66,24 +64,24 @@ def train_evaluate_model(model, X_train, y_train, tscv, param_grid=None):
 
         # Hyperparameter sensitivity analysis
         results = pd.DataFrame(search.cv_results_)
-        # for param in param_grid:
-        #     plt.figure(figsize=(10, 6))
-        #     plt.plot(results[f"param_{param}"], results["mean_test_score"])
-        #     plt.xlabel(param)
-        #     plt.ylabel("Mean test score")
-        #     plt.title(f"Hyperparameter Sensitivity: {param}")
-        #     # plt.show()
-        #     # Ensure the assets directory exists
-        #     if not os.path.exists("artifacts"):
-        #         os.makedirs("artifacts")
-        #         logging.info(f"Created directory: artifacts")
+        for param in param_grid:
+            plt.figure(figsize=(10, 6))
+            plt.plot(results[f"param_{param}"], results["mean_test_score"])
+            plt.xlabel(param)
+            plt.ylabel("Mean test score")
+            plt.title(f"Hyperparameter Sensitivity: {param}")
+            # plt.show()
+            # Ensure the assets directory exists
+            if not os.path.exists("artifacts"):
+                os.makedirs("artifacts")
+                logging.info(f"Created directory: artifacts")
 
-        #     fig_path = f"artifacts/Linear Regression - Hyperparameter Sensitivity: {param}.png"
-        #     gcs_model_path = f"Data/pipeline/airflow/{fig_path}"
-        #     plt.savefig(fig_path)
-        #     upload_artifact(fig_path, gcs_model_path)
-        #     # plt.savefig(f"artifacts/Linear Regression - Hyperparameter Sensitivity: {param}.png")
-        #     logging.info(f"Linear Regression - Hyperparameter Sensitivity: {param}.png saved to artifacts")
+            fig_path = f"artifacts/Linear Regression - Hyperparameter Sensitivity: {param}.png"
+            gcs_model_path = f"Data/pipeline/airflow/{fig_path}"
+            plt.savefig(fig_path)
+            upload_artifact(fig_path, gcs_model_path)
+            # plt.savefig(f"artifacts/Linear Regression - Hyperparameter Sensitivity: {param}.png")
+            logging.info(f"Linear Regression - Hyperparameter Sensitivity: {param}.png saved to artifacts")
 
     else:
         pipeline.fit(X_train, y_train)
@@ -108,47 +106,47 @@ def train_evaluate_model(model, X_train, y_train, tscv, param_grid=None):
     logging.info(f"Cross-Validation MSE: {results['mean_mse']}")
     logging.info(f"Cross-Validation MAE: {results['mean_mae']}")
 
-    # # Feature importance using SHAP
-    # logging.info("Running SHAP")
-    # explainer = shap.LinearExplainer(best_model["model"], X_train[:200])
-    # shap_values = explainer.shap_values(X_train[:200])
+    # Feature importance using SHAP
+    logging.info("Running SHAP")
+    explainer = shap.LinearExplainer(best_model["model"], X_train[:200])
+    shap_values = explainer.shap_values(X_train[:200])
 
-    # plt.figure(figsize=(10, 6))
-    # shap.summary_plot(shap_values, X_train, plot_type="bar", show=False)
-    # plt.title(f"Feature Importance for {type(model).__name__}")
-    # plt.tight_layout()
+    plt.figure(figsize=(10, 6))
+    shap.summary_plot(shap_values, X_train, plot_type="bar", show=False)
+    plt.title(f"Feature Importance for {type(model).__name__}")
+    plt.tight_layout()
 
     # Ensure the assets directory exists
-    # if not os.path.exists("artifacts"):
-    #     os.makedirs("artifacts")
-    #     logging.info(f"Created directory: artifacts")
+    if not os.path.exists("artifacts"):
+        os.makedirs("artifacts")
+        logging.info(f"Created directory: artifacts")
 
-    # fig_path = f"artifacts/Feature Importance for {type(model).__name__}.png"
-    # gcs_model_path = f"Data/pipeline/airflow/{fig_path}"
-    # plt.savefig(fig_path)
-    # upload_artifact(fig_path, gcs_model_path)
-    # logging.info(
-    #     f"Feature Importance for {type(model).__name__} saved to artifacts/Feature Importance for {type(model).__name__}.png"
-    # )
+    fig_path = f"artifacts/Feature Importance for {type(model).__name__}.png"
+    gcs_model_path = f"Data/pipeline/airflow/{fig_path}"
+    plt.savefig(fig_path)
+    upload_artifact(fig_path, gcs_model_path)
+    logging.info(
+        f"Feature Importance for {type(model).__name__} saved to artifacts/Feature Importance for {type(model).__name__}.png"
+    )
 
     return best_model, results
 
 
 # Main function for the full pipeline
 def time_series_regression_pipeline(data, test_size=0.2):
-    models = {
-        "Ridge": (Ridge(), {"model__alpha": [0.1, 0.5]}),
-        "Lasso": (Lasso(), {"model__alpha": [0.1, 0.5]}),
-        "ElasticNet": (
-            ElasticNet(),
-            {"model__alpha": [0.1, 0.5], "model__l1_ratio": [0.1, 0.5]},
-        ),
-    }
-
     logging.info("Starting time series regression pipeline")
     X_train, X_test, y_train, y_test = prepare_data(data, test_size)
 
     tscv = TimeSeriesSplit(n_splits=5)
+
+    models = {
+        # "Ridge": (Ridge(), {"model__alpha": [0.1, 0.5]}),
+        # "Lasso": (Lasso(), {"model__alpha": [0.1, 0.5]}),
+        "ElasticNet": (
+            ElasticNet(),
+            {"model__alpha": [0.1, 0.5], "model__l1_ratio": [0, 0.1, 0.5]},
+        ),
+    }
 
     final_models = {}
     logging.info("Training models...")
@@ -157,27 +155,27 @@ def time_series_regression_pipeline(data, test_size=0.2):
         best_model, results = train_evaluate_model(model, X_train, y_train, tscv, param_grid)
         final_models[model_name] = best_model
 
-        # # Perform SHAP analysis on test set
-        # explainer = shap.LinearExplainer(best_model["model"], X_test)
-        # shap_values = explainer.shap_values(X_test)
+        # Perform SHAP analysis on test set
+        explainer = shap.LinearExplainer(best_model["model"], X_test)
+        shap_values = explainer.shap_values(X_test)
 
-        # plt.figure(figsize=(10, 6))
-        # shap.summary_plot(shap_values, X_test, plot_type="bar", show=False)
-        # plt.title(f"Feature Importance for {model_name} on Test Set")
-        # plt.tight_layout()
+        plt.figure(figsize=(10, 6))
+        shap.summary_plot(shap_values, X_test, plot_type="bar", show=False)
+        plt.title(f"Feature Importance for {model_name} on Test Set")
+        plt.tight_layout()
 
-        # # Ensure the assets directory exists
-        # if not os.path.exists("artifacts"):
-        #     os.makedirs("artifacts")
-        #     logging.info(f"Created directory: artifacts")
+        # Ensure the assets directory exists
+        if not os.path.exists("artifacts"):
+            os.makedirs("artifacts")
+            logging.info(f"Created directory: artifacts")
 
-        # fig_path = f"artifacts/Feature Importance for {model_name} on Test Set.png"
-        # gcs_model_path = f"Data/pipeline/airflow/{fig_path}"
-        # plt.savefig(fig_path)
-        # upload_artifact(fig_path, gcs_model_path)
-        # logging.info(
-        #     f"PCA components plot saved to artifacts/Feature Importance for {model_name} on Test Set.png"
-        # )
+        fig_path = f"artifacts/Feature Importance for {model_name} on Test Set.png"
+        gcs_model_path = f"Data/pipeline/airflow/{fig_path}"
+        plt.savefig(fig_path)
+        upload_artifact(fig_path, gcs_model_path)
+        logging.info(
+            f"PCA components plot saved to artifacts/Feature Importance for {model_name} on Test Set.png"
+        )
 
     # Evaluate final models on test set
     folder = "artifacts"

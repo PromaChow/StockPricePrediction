@@ -7,14 +7,18 @@ import torch.nn as nn
 import itertools
 
 import logging
+import shap
+import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error
-
+import wandb
+from datetime import datetime
 
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 from sklearn.model_selection import train_test_split
+
 
 sys.path.append(os.path.abspath("pipeline/airflow"))
 sys.path.append(os.path.abspath("."))
@@ -91,6 +95,10 @@ def preprocess_data(df, timesteps=10):
 def train_and_evaluate_lstm(
     df, timesteps=10, hidden_size=50, dropout_rate=0.2, optimizer_type="adam", batch_size=32, epochs=20
 ):
+    cur_time = datetime.now().strftime("%Y%m%d-%H%M%S")
+    config = {"timesteps": timesteps, "hidden_size": hidden_size, "dropout_rate": dropout_rate}
+    logger = wandb.init(project="stock-price-prediction", name=f"experiment_{cur_time}", config=config)
+
     X_train, X_test, y_train, y_test, scaler = preprocess_data(df, timesteps)
 
     input_size = X_train.shape[2]
@@ -117,6 +125,8 @@ def train_and_evaluate_lstm(
             loss.backward()
             optimizer.step()
 
+            wandb.log({"epoch": epoch, "bid": i, "loss": loss.item()})
+
     # Evaluation
     model.eval()
     with torch.no_grad():
@@ -131,10 +141,15 @@ def train_and_evaluate_lstm(
     mae = mean_absolute_error(y_test_rescaled, y_pred_rescaled)
     mape = np.mean(np.abs((y_test_rescaled - y_pred_rescaled) / y_test_rescaled)) * 100
 
+    ## logging the results
+    logger.log({"RMSE": rmse, "MAE": mae, "MAPE": mape})
+
     logging.info("Results....")
     logging.info("RMSE - LSTM: %f", rmse)
     logging.info("MAE - LSTM: %f", mae)
     logging.info("MAPE - LSTM: %f", mape)
+
+    wandb.finish()
 
     return model, rmse
 
@@ -143,12 +158,13 @@ def grid_search_lstm(df, param_grid=None):
     if param_grid is None:
         param_grid = {
             "timesteps": [10],
-            "hidden_size": [20, 50],
+            "hidden_size": [5, 10],
             "dropout_rate": [0.2, 0.3],
             "optimizer_type": ["adam"],
             "batch_size": [32],
             "epochs": [2],
         }
+
     logging.info("Starting grid search for LSTM model")
     best_params = None
     best_rmse = float("inf")
@@ -172,6 +188,8 @@ def grid_search_lstm(df, param_grid=None):
             epochs=param_dict["epochs"],
         )
 
+        # hyperparameter_sensitivity(df, param_dict)
+
         if rmse < best_rmse:
             best_rmse = rmse
             best_params = param_dict
@@ -183,10 +201,51 @@ def grid_search_lstm(df, param_grid=None):
 
     logging.info(f"Uploading the best model LSTM to Google Cloud Storage")
     output_path = f"{folder}/LSTM.pkl"
-    gcs_model_path = f"gs://stock_price_prediction_dataset/model_checkpoints/LSTM.pkl"
+    gcs_model_path = "model_checkpoints/LSTM.pkl"
     save_and_upload_model(model=model, local_model_path=output_path, gcs_model_path=gcs_model_path)
 
     return best_model, best_params, best_rmse
+
+
+def hyperparameter_sensitivity(df, param_ranges):
+    results = []
+    for param, values in param_ranges.items():
+        param_results = []
+        for value in values:
+            if param == "units":
+                _, rmse = train_and_evaluate_lstm(df, units=value)
+            elif param == "dropout_rate":
+                _, rmse = train_and_evaluate_lstm(df, dropout_rate=value)
+            elif param == "optimizer":
+                _, rmse = train_and_evaluate_lstm(df, optimizer=value)
+            param_results.append((value, rmse))
+        results.append((param, param_results))
+
+    # Plot results
+    for param, param_results in results:
+        values, rmses = zip(*param_results)
+        plt.figure(figsize=(10, 6))
+        plt.plot(values, rmses, marker="o")
+        plt.title(f"Sensitivity Analysis: {param}")
+        plt.xlabel(param)
+        plt.ylabel("RMSE")
+
+        # Ensure the assets directory exists
+        if not os.path.exists("artifacts"):
+            os.makedirs("artifacts")
+            logging.info(f"Created directory: artifacts")
+
+        plt.savefig(f"artifacts/Sensitivity Analysis - {param}.png")
+        logging.info(f"Sensitivity Analysis plot saved to artifacts/Sensitivity Analysis - {param}.png")
+
+
+def feature_importance(model, X_test):
+    # Use SHAP for feature importance
+    explainer = shap.DeepExplainer(model, X_test[:100])
+    shap_values = explainer.shap_values(X_test[:100])
+
+    # Plot feature importance
+    shap.summary_plot(shap_values[0], X_test[:100], plot_type="bar", show=False)
 
 
 if __name__ == "__main__":
@@ -211,11 +270,11 @@ if __name__ == "__main__":
     scaled_data = scaler(technical_indicators_data)
     param_grid = {
         "timesteps": [10],
-        "hidden_size": [50, 100],
+        "hidden_size": [5, 10],
         "dropout_rate": [0.2, 0.3],
         "optimizer_type": ["adam"],
         "batch_size": [32],
-        "epochs": [20],
+        "epochs": [2],
     }
 
     best_model, best_params, best_rmse = grid_search_lstm(scaled_data, param_grid)

@@ -60,6 +60,23 @@ def prepare_data(data, test_size=0.2):
     return X_train, X_test, y_train, y_test
 
 
+# def save_and_upload_model(model, local_model_path, gcs_model_path):
+#     """
+#     Saves the model locally and uploads it to GCS.
+
+#     Parameters:
+#     model (kmeans): The trained model to be saved and uploaded.
+#     local_model_path (str): The local path to save the model.
+#     gcs_model_path (str): The GCS path to upload the model.
+#     """
+#     # Save the model locally
+#     joblib.dump(model, local_model_path)
+
+#     # Upload the model to GCS
+#     with fs.open(gcs_model_path, "wb") as f:
+#         joblib.dump(model, f)
+
+
 def save_and_upload_model(model, local_model_path, gcs_model_path):
     """
     Saves the model locally and uploads it to GCS.
@@ -72,6 +89,24 @@ def save_and_upload_model(model, local_model_path, gcs_model_path):
     # Save the model locally
     joblib.dump(model, local_model_path)
 
-    # Upload the model to GCS
-    with fs.open(gcs_model_path, "wb") as f:
-        joblib.dump(model, f)
+    storage_client = storage.Client()
+    bucket = storage_client.bucket("stock_price_prediction_dataset")
+    blob = bucket.blob(gcs_model_path)
+    blob.upload_from_filename(local_model_path)
+    return True
+
+
+def upload_artifact(local_artifact_path, gcs_artifact_path):
+    """
+    Uploads the artifact to GCS.
+
+    Parameters:
+    local_artifact_path (str): The local path to the artifact.
+    gcs_artifact_path (str): The GCS path to upload the artifact.
+    """
+
+    storage_client = storage.Client()
+    bucket = storage_client.bucket("stock_price_prediction_dataset")
+    blob = bucket.blob(gcs_artifact_path)
+    blob.upload_from_filename(local_artifact_path)
+    return True
