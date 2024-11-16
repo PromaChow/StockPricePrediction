@@ -64,7 +64,7 @@ The Airflow DAG (`Group10_DataPipeline_MLOps`) was successfully implemented and 
 - **Run Status**: Success
 - **Run Duration**: 00:03:37
 
-![DAG Run Summary](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/airflow_pipeline.png)
+![DAG Run Summary](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/airflow_pipeline.png)
 
 #### Task Overview
 The DAG consists of 19 tasks, each representing a step in the data processing, feature engineering, and model development pipeline. Key tasks include:
@@ -94,25 +94,25 @@ All tasks completed successfully with minimal execution time per task, indicatin
 The **Execution Graph** confirms that tasks were executed sequentially and completed successfully (marked in green), showing no deferred, failed, or skipped tasks. The **Gantt Chart** illustrates the time taken by each task and confirms that the pipeline completed within the expected duration.
 
 #### Execution Graph
-![Execution Graph](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/airflow_graph.png)
+![Execution Graph](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/airflow_graph.png)
 
 #### Gantt Chart
-![Gantt Chart](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/airflow_gantt.jpeg)
+![Gantt Chart](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/airflow_gantt.jpeg)
 
 #### Task Logs
 Detailed logs for each task provide insights into the processing steps, including correlation matrix updates, data handling operations, and confirmation of successful execution steps. 
 
-![Task Logs](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/airflow_logging.jpeg)
+![Task Logs](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/airflow_logging.jpeg)
 
 #### Email Notifications 
 **Anomaly Detection and Automated Alert**
 Automated email notifications were configured to inform the team of task success or failure. As shown in the sample emails, each run completed with a success message confirming the full execution of the DAG tasks.
 
-![Email Notifications](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/email_notification.jpeg)
+![Email Notifications](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/email_notification.jpeg)
 
 #### Testing Summary
 The pipeline scripts were validated with 46 unit tests using `pytest`. All tests passed with zero errors. These tests cover critical modules such as:
-![Test Summary](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/test_functions.jpeg)
+![Test Summary](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/test_functions.jpeg)
 ---
 
 ### Pipeline Components
@@ -192,7 +192,7 @@ The model development process begins by loading data from a versioned dataset th
 │   └── DVC                            # Version control for datasets
 ```
 
-![Data Pipeline](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/airflow_pipeline.png)
+![Data Pipeline](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/airflow_pipeline.png)
 
 ### 2. Training and Selecting the Best Model
 Once the data is loaded, several machine learning models are trained to find the most suitable one based on performance metrics. 
@@ -214,7 +214,7 @@ Once the data is loaded, several machine learning models are trained to find the
 │       └── XGBoost.pkl
 ```
 
-![Model Checkpoints](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/save_best_model_to_gcs.png)
+![Model Checkpoints](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/save_best_model_to_gcs.png)
 
 ### 3. Model Validation
 Model validation is a crucial step to evaluate how well the selected model performs on unseen data. 
@@ -224,7 +224,7 @@ Model validation is a crucial step to evaluate how well the selected model perfo
 
 **Airflow Gantt Chart for Model Validation**:
 
-![Airflow Gantt Chart](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/airflow_gantt.png)
+![Airflow Gantt Chart](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/airflow_gantt.png)
 
 ### 4. Model Bias Detection (Using Slicing Techniques)
 Bias detection ensures that the model behaves equitably across different subgroups of data.
@@ -234,7 +234,7 @@ Bias detection ensures that the model behaves equitably across different subgrou
 
 **Airflow Graph Depicting Bias Detection Task**:
 
-![Airflow Graph](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/airflow_graph.png)
+![Airflow Graph](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/airflow_graph.png)
 
 ### 5. Bias Detection and Mitigation Strategies
 If bias is detected in the model's predictions, mitigation strategies are employed to ensure fair performance.
@@ -245,7 +245,7 @@ If bias is detected in the model's predictions, mitigation strategies are employ
 
 **Bias Detection Logs**:
 
-![Bias Detection Log](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/detect_bias_log.png)
+![Bias Detection Log](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/detect_bias_log.png)
 
 ### 6. Hyperparameter Tuning
 Hyperparameter tuning is a critical step for optimizing the model’s performance.
@@ -261,7 +261,7 @@ Hyperparameter tuning is a critical step for optimizing the model’s performanc
 │   ├── model_checkpoints               # Models with different hyperparameter settings
 ```
 
-![Artifacts Blob](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/artifacts_blob.png)
+![Artifacts Blob](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/artifacts_blob.png)
 
 ### 7. Model Sensitivity Analysis
 Sensitivity analysis helps understand how changes in input features and hyperparameters affect model performance.
@@ -272,10 +272,10 @@ Sensitivity analysis helps understand how changes in input features and hyperpar
 **Sensitivity Analysis Visualizations**:
 
 - **Feature Importance for ElasticNet**:
-  ![ElasticNet Feature Importance](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/model_analysis_elasticNet.png)
+  ![ElasticNet Feature Importance](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/model_analysis_elasticNet.png)
 
 - **Hyperparameter Sensitivity Analysis for Linear Regression**:
-  ![Hyperparameter Sensitivity](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/model_analysis_sensitivity.png)
+  ![Hyperparameter Sensitivity](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/model_analysis_sensitivity.png)
 
 ### 8. Experiment Tracking and Results with Weights & Biases
 
@@ -292,16 +292,16 @@ In the model development process, we leveraged Weights & Biases (W&B) to meticul
 **Experiment Tracking Visualizations**:
 
 - **Overview of All Runs**:
-  ![Overview of All Runs](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/overview_charts_all_runs.png)
+  ![Overview of All Runs](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets
 
 - **Comparison of Different Runs**:
-  ![Comparison of Runs](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/compare_different_runs.png)
+  ![Comparison of Runs](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/compare_different_runs.png)
 
 - **Detailed View of a Single Run**:
-  ![Detail of One Run](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/detail_one_run.png)
+  ![Detail of One Run](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/detail_one_run.png)
 
 - **Main Dashboard Overview**:
-  ![W&B Dashboard Overview](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/wandb_main_dashboard_overview_all_runs.png)
+  ![W&B Dashboard Overview](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/wandb_main_dashboard_overview_all_runs.png)
 
 
 ---
@@ -356,22 +356,22 @@ The following GCP components are used in this pipeline:
 ## Setting Up Cloud Build Trigger
 Cloud Build is configured to trigger the build pipeline automatically when a new commit is pushed to the main branch in GitHub. The build trigger is named `StockMlopps` and is configured to monitor the repository `IE7374-MachineLearningOperations/StockPricePrediction`.
 
-![Cloud Build Trigger Setup](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/github_trigger.png)
+![Cloud Build Trigger Setup](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/github_trigger.png)
 
 ## Airflow Environment Details
 The Airflow instance in **Google Cloud Composer** handles tasks like downloading data, preprocessing, model training, and uploading results. The screenshot below shows the details of the Airflow environment:
 
-![Airflow Environment](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/airflow_gcp.png)
+![Airflow Environment](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/airflow_gcp.png)
 
 ### Airflow DAG Statistics
 Below are the statistics for the successful execution of DAG runs, showing a stable orchestration:
 
-![Airflow DAG Statistics](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/dags_run.png)
+![Airflow DAG Statistics](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/dags_run.png)
 
 ## Google Cloud Run for Model Deployment
 The model is deployed using **Google Cloud Run** after a successful DAG run. Cloud Run offers serverless functionality to manage and deploy trained models effectively. Below is a view of the VM instance utilized for other processes in this setup:
 
-![VM Instances in GCP](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/vm_instance.png)
+![VM Instances in GCP](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/vm_instance.png)
 
 ## Rollback Mechanism
 The CI/CD pipeline also includes a **rollback mechanism** for both model versions and deployments.
@@ -379,18 +379,18 @@ The CI/CD pipeline also includes a **rollback mechanism** for both model version
 ### Rolling Back Model Deployment
 A **Cloud Run trigger** (`mlops10trigger`) can be configured to roll back to a previous stable version in case any issue arises with the latest deployment.
 
-![Cloud Run Trigger for Rollback](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/mlops10trigger.png)
+![Cloud Run Trigger for Rollback](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/mlops10trigger.png)
 
 ## Model Registry in Artifact Storage
 
 The trained models are automatically pushed to **GCP Artifact Registry** to store and manage different versions of the models as they get updated. The artifact repository used is `us-east1-docker.pkg.dev/striped-graph-440017-d7/gcf-artifacts`, which contains Docker images used for deployment, such as `striped-graph-440017-d7_us-east1_mlops10trigger`.
 
-![Artifact Registry](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/gcp-artifcats.png)
+![Artifact Registry](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/gcp-artifcats.png)
 
 ### Model Checkpoints Saved in GCP Bucket
 All the model checkpoints, including `ElasticNet.pkl`, `LSTM.pkl`, `Lasso.pkl`, etc., are saved in the GCS bucket for version tracking and recovery.
 
-![Model Checkpoints in GCP Bucket](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/model_checkpoints.png)
+![Model Checkpoints in GCP Bucket](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/model_checkpoints.png)
 
 ## GitHub Actions for CI/CD
 **GitHub Actions** is used for CI/CD automation of the repository. It automatically builds and deploys updates after successful commits.
@@ -398,4 +398,4 @@ All the model checkpoints, including `ElasticNet.pkl`, `LSTM.pkl`, `Lasso.pkl`, 
 ### Cloud Build Trigger and Artifact Publishing
 A detailed screenshot of the CI/CD trigger setup and successful execution logs from GitHub is shown below:
 
-![GitHub Actions - CI/CD Pipeline](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/gcp-artifcats.png)
+![GitHub Actions - CI/CD Pipeline](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/gcp-artifcats.png)

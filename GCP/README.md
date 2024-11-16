@@ -48,22 +48,22 @@ The following GCP components are used in this pipeline:
 ## Setting Up Cloud Build Trigger
 Cloud Build is configured to trigger the build pipeline automatically when a new commit is pushed to the main branch in GitHub. The build trigger is named `StockMlopps` and is configured to monitor the repository `IE7374-MachineLearningOperations/StockPricePrediction`.
 
-![Cloud Build Trigger Setup](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/github_trigger.png)
+![Cloud Build Trigger Setup](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets
 
 ## Airflow Environment Details
 The Airflow instance in **Google Cloud Composer** handles tasks like downloading data, preprocessing, model training, and uploading results. The screenshot below shows the details of the Airflow environment:
 
-![Airflow Environment](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/airflow_gcp.png)
+![Airflow Environment](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets
 
 ### Airflow DAG Statistics
 Below are the statistics for the successful execution of DAG runs, showing a stable orchestration:
 
-![Airflow DAG Statistics](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/dags_run.png)
+![Airflow DAG Statistics](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets
 
 ## Google Cloud Run for Model Deployment
 The model is deployed using **Google Cloud Run** after a successful DAG run. Cloud Run offers serverless functionality to manage and deploy trained models effectively. Below is a view of the VM instance utilized for other processes in this setup:
 
-![VM Instances in GCP](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/vm_instance.png)
+![VM Instances in GCP](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets
 
 ## Rollback Mechanism
 The CI/CD pipeline also includes a **rollback mechanism** for both model versions and deployments.
@@ -71,18 +71,18 @@ The CI/CD pipeline also includes a **rollback mechanism** for both model version
 ### Rolling Back Model Deployment
 A **Cloud Run trigger** (`mlops10trigger`) can be configured to roll back to a previous stable version in case any issue arises with the latest deployment.
 
-![Cloud Run Trigger for Rollback](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/mlops10trigger.png)
+![Cloud Run Trigger for Rollback](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets
 
 ## Model Registry in Artifact Storage
 
 The trained models are automatically pushed to **GCP Artifact Registry** to store and manage different versions of the models as they get updated. The artifact repository used is `us-east1-docker.pkg.dev/striped-graph-440017-d7/gcf-artifacts`, which contains Docker images used for deployment, such as `striped-graph-440017-d7_us-east1_mlops10trigger`.
 
-![Artifact Registry](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/gcp-artifcats.png)
+![Artifact Registry](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets
 
 ### Model Checkpoints Saved in GCP Bucket
 All the model checkpoints, including `ElasticNet.pkl`, `LSTM.pkl`, `Lasso.pkl`, etc., are saved in the GCS bucket for version tracking and recovery.
 
-![Model Checkpoints in GCP Bucket](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/model_checkpoints.png)
+![Model Checkpoints in GCP Bucket](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets
 
 ## GitHub Actions for CI/CD
 **GitHub Actions** is used for CI/CD automation of the repository. It automatically builds and deploys updates after successful commits.
@@ -90,4 +90,4 @@ All the model checkpoints, including `ElasticNet.pkl`, `LSTM.pkl`, `Lasso.pkl`, 
 ### Cloud Build Trigger and Artifact Publishing
 A detailed screenshot of the CI/CD trigger setup and successful execution logs from GitHub is shown below:
 
-![GitHub Actions - CI/CD Pipeline](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/gcp-artifcats.png)
+![GitHub Actions - CI/CD Pipeline](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets
