@@ -1,13 +1,86 @@
+Bucket: buc-logs
+
+
+Bucket: cloud-ai-platform-a462f200-4e97-4f70-9d3d-4ef94262de47
+
+
 Bucket: gcf-v2-sources-771172817312-us-east1
 cloud-trigger-data
+  function-source.zip
+mlops10trigger
   function-source.zip
 
 
 Bucket: gcf-v2-uploads-771172817312-us-east1
-d04f28ad-c506-4101-817f-b1c62c64e803.zip
+
+
+Bucket: gcf-v2-uploads-771172817312.us-east1.cloudfunctions.appspot.com
+6759b911-f9fe-464f-912b-c9f85db7410c.zip
 
 
 Bucket: stock_price_prediction_dataset
+Codefiles
+  
+  GCP
+    GCPresorce.py
+    filesbucket.ipynb
+    synclocal.ipynb
+  models
+    KNN.ipynb
+    LSTM.ipynb
+    ML Models.ipynb
+    RF_Model.ipynb
+    SVM.ipynb
+    XGBoost.ipynb
+    linear_regression.ipynb
+  pipeline
+    airflow
+      dags
+        airflow.py
+        src
+          convert_column_dtype.py
+          correlation.py
+          download_data.py
+          feature_interactions.py
+          handle_missing.py
+          keep_latest_data.py
+          lagged_features.py
+          pca.py
+          plot_yfinance_time_series.py
+          remove_weekend_data.py
+          scaler.py
+          technical_indicators.py
+      tests
+        test_convert_column_dtype.py
+        test_correlation.py
+        test_download_data.py
+        test_feature_interaction.py
+        test_handle_missing.py
+        test_keep_latest_data.py
+        test_lagged_features.py
+        test_pca.py
+        test_plot_yfinance_time_series.py
+        test_remove_weekend_data.py
+        test_scaler.py
+        test_technical_indicators.py
+  src
+    DataSchema_Stats.ipynb
+    Feature Engineering.ipynb
+    PROJECT_DATA_CLEANING.ipynb
+    data_preprocessing.ipynb
+  tests
+    test_convert_column_dtype.py
+    test_correlation.py
+    test_download_data.py
+    test_feature_interaction.py
+    test_handle_missing.py
+    test_keep_latest_data.py
+    test_lagged_features.py
+    test_pca.py
+    test_plot_yfinance_time_series.py
+    test_remove_weekend_data.py
+    test_scaler.py
+    test_technical_indicators.py
 DVC
   
   files
@@ -20,6 +93,7 @@ DVC
         686ef34261bffe0910b0d8895c314b
       0d
         249287c3a977c179ea4d737465e2bd
+        eccfef634df5bcbe0f8b7df7e8df55
       0f
         8ed73aa2b6559377a18220a55eb998
       12
@@ -32,6 +106,7 @@ DVC
         18d13c54000beb2f78fb5350a70088
       1c
         820732fffe9a07d2b60db4d04901c0
+        951a8e3e735df417f57de6f226f218
       1d
         cce21c382ceb4196933531da242a5b
       21
@@ -104,6 +179,8 @@ DVC
       7c
         605eb5473eeba85716c90631e1370f.dir
         dc250dfe088372c94e073d99e2fd86.dir
+      7e
+        5c23a371fa23c7894502a1c2a713ca
       7f
         9eb78bad5b16a88707ba21ddd8e9f5
         f0d06e94a3f2a6e75f57428d739767
@@ -141,6 +218,8 @@ DVC
         1a9eba08eaccabdb8b7be11fe405da
       b0
         076fa278916e54c94268a15676243b
+      b2
+        b9bc7f32346df320038efb92b58976
       b3
         18d1ddc24c377b097bffca13471b90
       b4
@@ -247,6 +326,14 @@ Data
   pipeline
     airflow
       artifacts
+        Feature Importance for ElasticNet on Test Set.png
+        Feature Importance for ElasticNet.png
+        Feature Importance for Lasso on Test Set.png
+        Feature Importance for Lasso.png
+        Feature Importance for Ridge on Test Set.png
+        Feature Importance for Ridge.png
+        Linear Regression - Hyperparameter Sensitivity: model__alpha.png
+        Linear Regression - Hyperparameter Sensitivity: model__l1_ratio.png
         correlation_matrix_after_removing_correlated_features.png
         pca_components.png
         yfinance_time_series.png
@@ -282,7 +369,111 @@ Data
             USRECDP.csv
             VIXCLS.csv
           fama_french.csv
-          final_dataset.csv
+          final_dataset_for_modeling.csv
+          final_dataset_for_modeling_2.csv
           merged_original_dataset.csv
+          merged_original_dataset_2.csv
+          merged_original_dataset_2new.csv
+gs:
+  
+    stock_price_prediction_dataset
+      Data
+        pipeline
+          airflow
+            dags
+              data
+                final_dataset_for_modeling_2.csv
+      model_checkpoints
+        ElasticNet.pkl
+        LSTM.pkl
+        Lasso.pkl
+        Ridge.pkl
+        XGBoost.pkl
+model_checkpoints
+  ElasticNet.pkl
+  LSTM.pkl
+  Lasso.pkl
+  Ridge.pkl
+  XGBoost.pkl
+
+
+Bucket: us-central1-mlopscom10-0658b5dc-bucket
+dags
+  
+  airflow.py
+  airflow_monitoring.py
+  data
+    .gitignore
+    ADS_index.csv
+    FRED_Variables
+      AMERIBOR.csv
+      BAMLH0A0HYM2.csv
+      BAMLH0A0HYM2EY.csv
+      CBBTCUSD.csv
+      CBETHUSD.csv
+      DAAA.csv
+      DBAA.csv
+      DCOILBRENTEU.csv
+      DCOILWTICO.csv
+      DCPF1M.csv
+      DCPN3M.csv
+      DEXJPUS.csv
+      DEXUSEU.csv
+      DEXUSUK.csv
+      DGS1.csv
+      DGS10.csv
+      DHHNGSP.csv
+      NIKKEI225.csv
+      OBMMIJUMBO30YF.csv
+      RIFSPPFAAD90NB.csv
+      T10Y3M.csv
+      T10YIE.csv
+      T5YIE.csv
+      USRECD.csv
+      USRECDM.csv
+      USRECDP.csv
+      VIXCLS.csv
+    fama_french.csv
+    merged_original_dataset.csv
+  src
+    __pycache__
+      Requirement.cpython-312.pyc
+      convert_column_dtype.cpython-312.pyc
+      correlation.cpython-312.pyc
+      download_data.cpython-312.pyc
+      feature_interactions.cpython-312.pyc
+      handle_missing.cpython-312.pyc
+      keep_latest_data.cpython-312.pyc
+      lagged_features.cpython-312.pyc
+      pca.cpython-312.pyc
+      plot_yfinance_time_series.cpython-312.pyc
+      remove_weekend_data.cpython-312.pyc
+      scaler.cpython-312.pyc
+      technical_indicators.cpython-312.pyc
+    convert_column_dtype.py
+    correlation.py
+    download_data.py
+    feature_interactions.py
+    handle_missing.py
+    keep_latest_data.py
+    lagged_features.py
+    models
+      LSTM.py
+      XGBoost.py
+      linear_regression.py
+      model_utils.py
+    pca.py
+    plot_yfinance_time_series.py
+    remove_weekend_data.py
+    scaler.py
+    technical_indicators.py
+    upload_blob.py
+data
+  
+logs
+  
+plugins
+  
+requirements.txt
 
 
