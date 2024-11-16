@@ -103,7 +103,7 @@ def train_xgboost_with_metrics(data, test_size=0.2):
     if not os.path.exists(folder):
         os.makedirs(folder)
     output_path = f"{folder}/XGBoost.pkl"
-    gcs_model_path = f"gs://stock_price_prediction_dataset/model_checkpoints/XGBoost.pkl"
+    gcs_model_path = "model_checkpoints/XGBoost.pkl"
     save_and_upload_model(model=best_model, local_model_path=output_path, gcs_model_path=gcs_model_path)
 
     # Return the best model and metrics

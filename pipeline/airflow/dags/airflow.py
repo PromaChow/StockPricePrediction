@@ -31,15 +31,22 @@ from src.upload_blob import upload_blob
 from src.models.linear_regression import time_series_regression_pipeline
 from src.models.LSTM import grid_search_lstm
 from src.models.XGBoost import train_xgboost_with_metrics
+from src.models.model_sensitivity_analysis import time_series_regression_pipeline as sensitivity_analysis
+from src.models.model_bias_detection import detect_bias
 
 load_dotenv()
 import os
+import wandb
 import sys
 
 sys.path.append(os.path.abspath("."))
 
 with open("dags/config.yaml", "r") as file:
     config = yaml.safe_load(file)
+
+
+os.environ["WANDB__SERVICE_WAIT"] = "300"
+wandb.login(key=config["WANDB_API_KEY"])
 
 
 # Define function to notify failure or sucess via an email
@@ -226,6 +233,20 @@ xgboost_model_task = PythonOperator(
     dag=dag,
 )
 
+sensitivity_analysis_task = PythonOperator(
+    task_id="sensitivity_analysis_task",
+    python_callable=sensitivity_analysis,
+    op_args=[scaler_task.output],
+    dag=dag,
+)
+
+detect_bias_task = PythonOperator(
+    task_id="detect_bias_task",
+    python_callable=detect_bias,
+    op_args=[scaler_task.output],
+    dag=dag,
+)
+
 # Set task dependencies
 (
     download_data_task
@@ -244,6 +265,8 @@ xgboost_model_task = PythonOperator(
     >> linear_regression_model_task
     >> lstm_model_task
     >> xgboost_model_task
+    >> sensitivity_analysis_task
+    >> detect_bias_task
     >> send_email_task
 )
 

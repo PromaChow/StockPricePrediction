@@ -40,12 +40,25 @@ Upload a file to the bucket
 
 
 def upload_blob(data, gcs_file_path: str = None):
-    """Uploads a file to the bucket."""
+    # """Uploads a file to the bucket."""
 
+    # if gcs_file_path is None:
+    #     gcs_file_path = "gs://stock_price_prediction_dataset/Data/pipeline/airflow/dags/data/final_dataset_for_modeling.csv"
+
+    # data.to_csv(gcs_file_path, index=False)
+    """
+    upload_from_string()
+    upload_from_file()
+    upload_from_filename()
+    """
     if gcs_file_path is None:
-        gcs_file_path = "gs://stock_price_prediction_dataset/Data/pipeline/airflow/dags/data/final_dataset_for_modeling.csv"
+        gcs_file_path = "gs://stock_price_prediction_dataset/Data/pipeline/airflow/dags/data/final_dataset_for_modeling_2.csv"
 
-    data.to_csv(gcs_file_path, index=False)
+    storage_client = storage.Client()
+    bucket = storage_client.bucket("stock_price_prediction_dataset")
+    blob = bucket.blob(gcs_file_path)
+    blob.upload_from_string(data.to_csv(index=False), "text/csv")
+    return True
 
 
 if __name__ == "__main__":

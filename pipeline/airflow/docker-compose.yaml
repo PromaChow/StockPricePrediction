@@ -70,7 +70,7 @@ x-airflow-common:
     AIRFLOW__SMTP__SMTP_SSL: "False" # Use SSL if required
     AIRFLOW__SMTP__SMTP_TIMEOUT: 30
     AIRFLOW__SMTP__SMTP_RETRY_LIMIT: 5
-    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:- pandas scikit-learn kneed matplotlib seaborn numpy yfinance fredapi gcsfs pipeline torch xgboost}
+    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:- pandas scikit-learn kneed matplotlib seaborn numpy yfinance fredapi gcsfs pipeline torch xgboost shap fairlearn omegaconf wandb}
   volumes:
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
