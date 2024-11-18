@@ -1,17 +1,15 @@
 steps:
   # Step 1: Clone the repository
   - name: 'gcr.io/cloud-builders/git'
-    args: ['clone', 'https://github.com/IE7374-MachineLearningOperations/StockPricePrediction.git']
-
-  # Step 2: Change directory to the cloned repository
-  - name: 'gcr.io/cloud-builders/bash'
+    entrypoint: 'bash'
     args:
       - '-c'
       - |
+        git clone https://github.com/IE7374-MachineLearningOperations/StockPricePrediction.git &&
         cd StockPricePrediction &&
         echo "Repository cloned successfully"
 
-  # Step 3: Upload specific files to GCP Bucket
+  # Step 2: Upload specific files to GCP Bucket
   - name: 'gcr.io/cloud-builders/gsutil'
     args:
       - '-m'
@@ -19,69 +17,62 @@ steps:
       - '-r'
       - 'StockPricePrediction/*.py'
       - 'StockPricePrediction/*.ipynb'
-      - 'StockPricePrediction/*.h5'
+      - 'StockPricePrediction/*.pkl'
       - 'gs://stock_price_prediction_dataset/'
 
-  # Step 4: Install dependencies (e.g., TensorFlow, other required packages)
+  # Step 3: Install dependencies
   - name: 'gcr.io/cloud-builders/pip'
     args:
       - 'install'
       - '-r'
       - 'StockPricePrediction/requirements.txt'
 
-  # Step 5: Train the model
-  - name: 'gcr.io/cloud-builders/python'
-    args:
-      - 'StockPricePrediction/train.py'
+#   # Step 4: Train the model
+#   - name: 'gcr.io/cloud-builders/python'
+#     args:
+#       - 'StockPricePrediction/train.py'
 
-  # Step 6: Validate the model
-  - name: 'gcr.io/cloud-builders/python'
-    args:
-      - 'StockPricePrediction/validate.py'
+#   # Step 5: Validate the model
+#   - name: 'gcr.io/cloud-builders/python'
+#     args:
+#       - 'StockPricePrediction/validate.py'
 
-  # Step 7: Conditional step to deploy model if validation is successful
-  - name: 'gcr.io/cloud-builders/bash'
-    id: 'Check Validation'
-    args:
-      - '-c'
-      - |
-        ACCURACY=$(python StockPricePrediction/validate.py --get_accuracy) &&
-        if (( $(echo "$ACCURACY > 0.70" | bc -l) )); then
-          echo "Model accuracy is sufficient, proceeding with deployment";
-        else
-          echo "Model accuracy is insufficient, stopping deployment";
-          exit 1;
-        fi
+#   # Step 6: Conditional deployment if validation is successful
+#   - name: 'gcr.io/cloud-builders/bash'
+#     id: 'Check Validation'
+#     args:
+#       - '-c'
+#       - |
+#         ACCURACY=$(python StockPricePrediction/validate.py --get_accuracy) &&
+#         if (( $(echo "$ACCURACY > 0.70" | bc -l) )); then
+#           echo "Model accuracy is sufficient, proceeding with deployment";
+#         else
+#           echo "Model accuracy is insufficient, stopping deployment";
+#           exit 1;
+#         fi
 
-  # Step 8: Save the trained model to the GCP Bucket
-  - name: 'gcr.io/cloud-builders/gsutil'
-    args:
-      - 'cp'
-      - 'StockPricePrediction/models/*.h5'
-      - 'gs://stock_price_prediction_dataset/trained_models/'
+#   # Step 7: Save the trained model to GCP Bucket
+#   - name: 'gcr.io/cloud-builders/gsutil'
+#     args:
+#       - 'cp'
+#       - 'StockPricePrediction/models/*.h5'
+#       - 'gs://stock_price_prediction_dataset/trained_models/'
 
-  # Step 9: Run Unit Tests
-  - name: 'gcr.io/cloud-builders/python'
-    args:
-      - '-m'
-      - 'unittest'
-      - 'discover'
-      - '-s'
-      - 'StockPricePrediction/tests'
+#   # Step 8: Run Unit Tests
+#   - name: 'gcr.io/cloud-builders/python'
+#     args:
+#       - '-m'
+#       - 'unittest'
+#       - 'discover'
+#       - '-s'
+#       - 'StockPricePrediction/tests'
 
-artifacts:
-  objects:
-    location: 'gs://stock_price_prediction_dataset/artifacts/'
-    paths:
-      - 'StockPricePrediction/*.py'
-      - 'StockPricePrediction/*.ipynb'
-      - 'StockPricePrediction/*.h5'
+# artifacts:
+#   objects:
+#     location: 'gs://stock_price_prediction_dataset/artifacts/'
+#     paths:
+#       - 'StockPricePrediction/*.py'
+#       - 'StockPricePrediction/*.ipynb'
+#       - 'StockPricePrediction/*.h5'
 
-timeout: '1200s'
-
-# Trigger configurations for CI/CD
-trigger:
-  - event: 'push'
-    branch: 'main'
-    repo: 'https://github.com/IE7374-MachineLearningOperations/StockPricePrediction.git'
-    description: 'Trigger model training on new commits to main branch.'
+# timeout: '1200s'

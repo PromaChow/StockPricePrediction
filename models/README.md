@@ -29,7 +29,7 @@ The model development process begins by loading data from a versioned dataset th
 │   └── DVC                            # Version control for datasets
 ```
 
-![Data Pipeline](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/airflow_pipeline.png)
+![Data Pipeline](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/airflow_pipeline.png)
 
 ### 2. Training and Selecting the Best Model
 Once the data is loaded, several machine learning models are trained to find the most suitable one based on performance metrics. 
@@ -51,7 +51,7 @@ Once the data is loaded, several machine learning models are trained to find the
 │       └── XGBoost.pkl
 ```
 
-![Model Checkpoints](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/save_best_model_to_gcs.png)
+![Model Checkpoints](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/save_best_model_to_gcs.png)
 
 ### 3. Model Validation
 Model validation is a crucial step to evaluate how well the selected model performs on unseen data. 
@@ -61,7 +61,7 @@ Model validation is a crucial step to evaluate how well the selected model perfo
 
 **Airflow Gantt Chart for Model Validation**:
 
-![Airflow Gantt Chart](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/airflow_gantt.png)
+![Airflow Gantt Chart](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/airflow_gantt.png)
 
 ### 4. Model Bias Detection (Using Slicing Techniques)
 Bias detection ensures that the model behaves equitably across different subgroups of data.
@@ -71,7 +71,7 @@ Bias detection ensures that the model behaves equitably across different subgrou
 
 **Airflow Graph Depicting Bias Detection Task**:
 
-![Airflow Graph](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/airflow_graph.png)
+![Airflow Graph](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/airflow_graph.png)
 
 ### 5. Bias Detection and Mitigation Strategies
 If bias is detected in the model's predictions, mitigation strategies are employed to ensure fair performance.
@@ -82,7 +82,7 @@ If bias is detected in the model's predictions, mitigation strategies are employ
 
 **Bias Detection Logs**:
 
-![Bias Detection Log](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/detect_bias_log.png)
+![Bias Detection Log](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/detect_bias_log.png)
 
 ### 6. Hyperparameter Tuning
 Hyperparameter tuning is a critical step for optimizing the model’s performance.
@@ -98,7 +98,7 @@ Hyperparameter tuning is a critical step for optimizing the model’s performanc
 │   ├── model_checkpoints               # Models with different hyperparameter settings
 ```
 
-![Artifacts Blob](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/artifacts_blob.png)
+![Artifacts Blob](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/artifacts_blob.png)
 
 ### 7. Model Sensitivity Analysis
 Sensitivity analysis helps understand how changes in input features and hyperparameters affect model performance.
@@ -109,10 +109,10 @@ Sensitivity analysis helps understand how changes in input features and hyperpar
 **Sensitivity Analysis Visualizations**:
 
 - **Feature Importance for ElasticNet**:
-  ![ElasticNet Feature Importance](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/model_analysis_elasticNet.png)
+  ![ElasticNet Feature Importance](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/model_analysis_elasticNet.png)
 
-- **Hyperparameter Sensitivity Analysis for Linear Regression**:
-  ![Hyperparameter Sensitivity](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/model_analysis_sensitivity.png)
+- **Hyperparameter Sensitivity Analysis**:
+  ![Hyperparameter Sensitivity](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/results_linear_regression.png)
 
 ### 8. Experiment Tracking and Results with Weights & Biases
 
@@ -129,16 +129,13 @@ In the model development process, we leveraged Weights & Biases (W&B) to meticul
 **Experiment Tracking Visualizations**:
 
 - **Overview of All Runs**:
-  ![Overview of All Runs](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/overview_charts_all_runs.png)
+  ![Overview of All Runs](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/overview_charts_all_runs.png)
 
 - **Comparison of Different Runs**:
-  ![Comparison of Runs](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/compare_different_runs.png)
+  ![Comparison of Runs](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/compare_different_runs.png)
 
 - **Detailed View of a Single Run**:
-  ![Detail of One Run](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/detail_one_run.png)
+  ![Detail of One Run](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/detail_one_run.png)
 
 - **Main Dashboard Overview**:
-  ![W&B Dashboard Overview](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/wandb_main_dashboard_overview_all_runs.png)
-
-
----
+  ![W&B Dashboard Overview](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/wandb_main_dashboard_overview_all_runs.png)

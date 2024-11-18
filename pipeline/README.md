@@ -64,7 +64,7 @@ The Airflow DAG (`Group10_DataPipeline_MLOps`) was successfully implemented and 
 - **Run Status**: Success
 - **Run Duration**: 00:03:37
 
-![DAG Run Summary](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/airflow_pipeline.png)
+![DAG Run Summary](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/airflow_pipeline.png)
 
 #### Task Overview
 The DAG consists of 19 tasks, each representing a step in the data processing, feature engineering, and model development pipeline. Key tasks include:
@@ -94,25 +94,25 @@ All tasks completed successfully with minimal execution time per task, indicatin
 The **Execution Graph** confirms that tasks were executed sequentially and completed successfully (marked in green), showing no deferred, failed, or skipped tasks. The **Gantt Chart** illustrates the time taken by each task and confirms that the pipeline completed within the expected duration.
 
 #### Execution Graph
-![Execution Graph](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/airflow_graph.png)
+![Execution Graph](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/airflow_graph.png)
 
 #### Gantt Chart
-![Gantt Chart](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/airflow_gantt.jpeg)
+![Gantt Chart](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/airflow_gantt.jpeg)
 
 #### Task Logs
 Detailed logs for each task provide insights into the processing steps, including correlation matrix updates, data handling operations, and confirmation of successful execution steps. 
 
-![Task Logs](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/airflow_logging.jpeg)
+![Task Logs](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/airflow_logging.jpeg)
 
 #### Email Notifications 
 **Anomaly Detection and Automated Alert**
 Automated email notifications were configured to inform the team of task success or failure. As shown in the sample emails, each run completed with a success message confirming the full execution of the DAG tasks.
 
-![Email Notifications](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/email_notification.jpeg)
+![Email Notifications](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/email_notification.jpeg)
 
 #### Testing Summary
 The pipeline scripts were validated with 46 unit tests using `pytest`. All tests passed with zero errors. These tests cover critical modules such as:
-![Test Summary](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/bf7526844544398e53ca528f30e883d1d87a493c/assets/test_functions.jpeg)
+![Test Summary](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/test_functions.jpeg)
 ---
 
 ### Pipeline Components
@@ -158,4 +158,3 @@ To set up and run the pipeline:
 2. **Fama-French Factors**: Provides historical data for financial research.
 3. **FRED Variables**: Includes various economic indicators, such as AMERIBOR, NIKKEI 225, and VIX.
 4. **YFinance**: Pulls historical stock data ('GOOGL') for financial time-series analysis.
-
