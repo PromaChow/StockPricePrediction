@@ -5,6 +5,8 @@ stages:
       - pipeline/airflow/dags/src/download_data.py
     outs:
       - pipeline/airflow/dags/data/merged_original_dataset.csv
+    metrics:
+      - pipeline/airflow/dags/data/merged_original_dataset.csv
 
   handle_missing_data:
     cmd: python pipeline/airflow/dags/src/handle_missing.py
@@ -12,12 +14,14 @@ stages:
       - pipeline/airflow/dags/src/handle_missing.py
       - pipeline/airflow/dags/data/ADS_index.csv
       - pipeline/airflow/dags/data/fama_french.csv
+    outs:
+      - pipeline/airflow/dags/data/merged_dataset_with_missing_values_handled.csv
 
   correlation_analysis:
     cmd: python pipeline/airflow/dags/src/correlation.py
     deps:
       - pipeline/airflow/dags/src/correlation.py
-      - pipeline/airflow/dags/data/merged_original_dataset.csv
+      - pipeline/airflow/dags/data/merged_dataset_with_missing_values_handled.csv
     outs:
       - pipeline/airflow/artifacts/correlation_matrix_after_removing_correlated_features.png
 
@@ -25,7 +29,7 @@ stages:
     cmd: python pipeline/airflow/dags/src/pca.py
     deps:
       - pipeline/airflow/dags/src/pca.py
-      - pipeline/airflow/dags/data/merged_original_dataset.csv
+      - pipeline/airflow/dags/data/merged_dataset_with_missing_values_handled.csv
     outs:
       - pipeline/airflow/artifacts/pca_components.png
 
@@ -33,7 +37,7 @@ stages:
     cmd: python pipeline/airflow/dags/src/plot_yfinance_time_series.py
     deps:
       - pipeline/airflow/dags/src/plot_yfinance_time_series.py
-      - pipeline/airflow/dags/data/merged_original_dataset.csv
+      - pipeline/airflow/dags/data/merged_dataset_with_missing_values_handled.csv
     outs:
       - pipeline/airflow/artifacts/yfinance_time_series.png
 

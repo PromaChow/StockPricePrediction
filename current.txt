@@ -47,6 +47,8 @@
 │   │   ├── Airflow README.md
 │   │   ├── Notebooks README.md
 │   │   └── Project README.md
+│   ├── Model development pipeline phase
+│   │   └── README.md
 │   └── Scoping Phase
 │       ├── Data Collection Group 10.pdf
 │       ├── errors-failure Group 10.pdf
@@ -333,4 +335,4 @@
     ├── test_scaler.py
     └── test_technical_indicators.py
 
-57 directories, 277 files
+58 directories, 278 files

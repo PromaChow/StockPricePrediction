@@ -111,8 +111,8 @@ Sensitivity analysis helps understand how changes in input features and hyperpar
 - **Feature Importance for ElasticNet**:
   ![ElasticNet Feature Importance](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/model_analysis_elasticNet.png)
 
-- **Hyperparameter Sensitivity Analysis for Linear Regression**:
-  ![Hyperparameter Sensitivity](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/model_analysis_sensitivity.png)
+- **Hyperparameter Sensitivity Analysis**:
+  ![Hyperparameter Sensitivity](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/results_linear_regression.png)
 
 ### 8. Experiment Tracking and Results with Weights & Biases
 
@@ -139,6 +139,3 @@ In the model development process, we leveraged Weights & Biases (W&B) to meticul
 
 - **Main Dashboard Overview**:
   ![W&B Dashboard Overview](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/wandb_main_dashboard_overview_all_runs.png)
-
-
----

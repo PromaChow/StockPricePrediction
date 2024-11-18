@@ -158,4 +158,3 @@ To set up and run the pipeline:
 2. **Fama-French Factors**: Provides historical data for financial research.
 3. **FRED Variables**: Includes various economic indicators, such as AMERIBOR, NIKKEI 225, and VIX.
 4. **YFinance**: Pulls historical stock data ('GOOGL') for financial time-series analysis.
-

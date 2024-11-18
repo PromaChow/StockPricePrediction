@@ -274,8 +274,8 @@ Sensitivity analysis helps understand how changes in input features and hyperpar
 - **Feature Importance for ElasticNet**:
   ![ElasticNet Feature Importance](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/model_analysis_elasticNet.png)
 
-- **Hyperparameter Sensitivity Analysis for Linear Regression**:
-  ![Hyperparameter Sensitivity](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/model_analysis_sensitivity.png)
+- **Hyperparameter Sensitivity Analysis**:
+  ![Hyperparameter Sensitivity](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/results_linear_regression.png)
 
 ### 8. Experiment Tracking and Results with Weights & Biases
 
@@ -292,7 +292,7 @@ In the model development process, we leveraged Weights & Biases (W&B) to meticul
 **Experiment Tracking Visualizations**:
 
 - **Overview of All Runs**:
-  ![Overview of All Runs](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets
+  ![Overview of All Runs](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/overview_charts_all_runs.png)
 
 - **Comparison of Different Runs**:
   ![Comparison of Runs](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/compare_different_runs.png)
@@ -371,7 +371,7 @@ Below are the statistics for the successful execution of DAG runs, showing a sta
 ## Google Cloud Run for Model Deployment
 The model is deployed using **Google Cloud Run** after a successful DAG run. Cloud Run offers serverless functionality to manage and deploy trained models effectively. Below is a view of the VM instance utilized for other processes in this setup:
 
-![VM Instances in GCP](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/vm_instance.png)
+![VM Instances in GCP](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/VM_instance.png)
 
 ## Rollback Mechanism
 The CI/CD pipeline also includes a **rollback mechanism** for both model versions and deployments.
@@ -398,4 +398,4 @@ All the model checkpoints, including `ElasticNet.pkl`, `LSTM.pkl`, `Lasso.pkl`, 
 ### Cloud Build Trigger and Artifact Publishing
 A detailed screenshot of the CI/CD trigger setup and successful execution logs from GitHub is shown below:
 
-![GitHub Actions - CI/CD Pipeline](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/gcp-artifcats.png)
+![GitHub Actions - CI/CD Pipeline](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/mlops10trigger.png)
