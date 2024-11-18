@@ -64,8 +64,6 @@ The Airflow DAG (`Group10_DataPipeline_MLOps`) was successfully implemented and 
 - **Run Status**: Success
 - **Run Duration**: 00:03:37
 
-![DAG Run Summary](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/airflow_pipeline.png)
-
 #### Task Overview
 The DAG consists of 19 tasks, each representing a step in the data processing, feature engineering, and model development pipeline. Key tasks include:
 1. `download_data_task` - Downloads initial datasets from multiple financial data sources.
@@ -97,12 +95,12 @@ The **Execution Graph** confirms that tasks were executed sequentially and compl
 ![Execution Graph](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/airflow_graph.png)
 
 #### Gantt Chart
-![Gantt Chart](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/airflow_gantt.jpeg)
+![Gantt Chart](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/airflow_gantt.png)
 
 #### Task Logs
 Detailed logs for each task provide insights into the processing steps, including correlation matrix updates, data handling operations, and confirmation of successful execution steps. 
 
-![Task Logs](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/airflow_logging.jpeg)
+![Task Logs](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/airflow_pipeline.png)
 
 #### Email Notifications 
 **Anomaly Detection and Automated Alert**
@@ -272,10 +270,12 @@ Sensitivity analysis helps understand how changes in input features and hyperpar
 **Sensitivity Analysis Visualizations**:
 
 - **Feature Importance for ElasticNet**:
+
   ![ElasticNet Feature Importance](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/model_analysis_elasticNet.png)
 
 - **Hyperparameter Sensitivity Analysis**:
-  ![Hyperparameter Sensitivity](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/results_linear_regression.png)
+
+  ![Hyperparameter Sensitivity](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/results_linear_regression .png)
 
 ### 8. Experiment Tracking and Results with Weights & Biases
 

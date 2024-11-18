@@ -1,6 +1,15 @@
-# DataPipeline Assignment Phase
+# ModelDevelopment Assignment Phase
 
 This section explains the DAGs pipeline implemented using Apache Airflow for workflow orchestration. The approach focuses on stock market analysis, combining data from various sources including FRED (Federal Reserve Economic Data), Fama-French factors. The pipeline is organized with clear separation of concerns - data storage in the 'data' directory, processing scripts in 'src', and output artifacts for visualization. The source code includes essential ML preprocessing steps like handling missing values, feature engineering (including technical indicators and lagged features), dimensionality reduction through PCA, correlation analysis, hyperparameter tuning, and model sensitivity analysis.
+
+### README files
+
+To read all files:
+
+   > Refer to [Assignments Submissions](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/tree/1e36981df331c0ecb44a13194e940dbe7ba8aa5b/Assignments_Submissions/) 
+
+To read current phase:
+   > Refer to [Model Development pipeline](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/tree/1e36981df331c0ecb44a13194e940dbe7ba8aa5b/Assignments_Submissions/Model%20development%20pipeline%20phase)
 
 ## Table of Contents
 - [Directory Structure](#directory-structure)
@@ -15,43 +24,77 @@ This section explains the DAGs pipeline implemented using Apache Airflow for wor
 
 ```
 .
-├── airflow
-│   ├── artifacts                    
-│   │   ├── correlation_matrix_after_removing_correlated_features.png
-│   │   ├── Feature Importance for ElasticNet on Test Set.png
-│   │   ├── Feature Importance for Lasso on Test Set.png
-│   │   ├── Linear Regression - Hyperparameter Sensitivity: model__alpha.png
-│   │   ├── Linear Regression - Hyperparameter Sensitivity: model__l1_ratio.png
-│   │   ├── pca_components.png
-│   │   └── yfinance_time_series.png
-│   ├── dags                          # Contains Airflow DAGs
-│   │   ├── airflow.py                # Main DAG for executing the pipeline
-│   │   ├── data                      # Data sources 
-│   │   │   ├── ADS_index.csv
-│   │   │   ├── fama_french.csv
-│   │   │   ├── FRED_Variables        
-│   │   │   │   ├── AMERIBOR.csv
-│   │   │   │   └── ...                # Other FRED data files
-│   │   │   └── merged_original_dataset.csv
-│   │   └── src                       # Scripts for various tasks
-│   │       ├── convert_column_dtype.py
-│   │       ├── correlation.py
-│   │       ├── download_data.py
-│   │       ├── feature_interactions.py
-│   │       ├── handle_missing.py
-│   │       ├── keep_latest_data.py
-│   │       ├── lagged_features.py
-│   │       ├── models
-│   │       │   ├── linear_regression.py
-│   │       │   ├── model_bias_detection.py
-│   │       │   ├── model_sensitivity_analysis.py
-│   │       └── pca.py
-│   ├── docker-compose.yaml           # Docker configuration for running Airflow
-│   ├── dvc.yaml                      # DVC configuration for data version control
-│   ├── logs                          # Airflow logs
-│   ├── plugins                      
-│   └── working_data                  
-└── pipelinetree.txt                  # Airflow working structure
+├── artifacts                     # Stores output files like correlation matrix, trained model artifacts
+│   ├── correlation_matrix_after_removing_correlated_features.png
+│   ├── ElasticNet.pkl            # Trained model files (ElasticNet, Ridge, etc.)
+│   ├── Feature Importance for ElasticNet on Test Set.png
+│   └── Ridge.pkl
+├── assets                        # Contains images used for visualization and documentation
+│   ├── airflow_dags.jpeg
+│   ├── gcpbucket.png
+│   └── overview_charts_all_runs.png
+├── Assignments_Submissions       # Stores submission documents for different project phases
+│   ├── DataPipeline Phase
+│   │   ├── Airflow README.md
+│   │   └── Project README.md
+│   └── Scoping Phase
+│       ├── Data Collection Group 10.pdf
+│       └── Group 10 Scoping Document.pdf
+├── data                          # Stores raw and preprocessed data files
+│   ├── ADS_Index.csv
+│   └── preprocessed
+│       ├── final_dataset.csv
+│       └── merged_original_dataset.csv
+├── GCP                           # Configuration and scripts for Google Cloud operations
+│   ├── application_default_credentials.json
+│   ├── deploy.yml
+│   └── synclocal.ipynb
+├── models                        # Jupyter notebooks and model checkpoint files
+│   ├── KNN.ipynb
+│   ├── model_checkpoints_Ridge.pkl
+│   └── XGBoost.ipynb
+├── pipeline
+│   ├── airflow
+│   │   ├── artifacts             # Stores intermediate artifacts for Airflow processing
+│   │   │   ├── pca_components.png
+│   │   │   └── yfinance_time_series.png
+│   │   ├── dags                  # DAG scripts for orchestrating data and model pipelines
+│   │   │   ├── airflow.py
+│   │   │   ├── data              # Data used in Airflow DAG processing
+│   │   │   │   ├── ADS_index.csv
+│   │   │   │   └── merged_original_dataset.csv
+│   │   │   └── src               # Python scripts for various DAG steps (e.g., data preprocessing)
+│   │   │       ├── convert_column_dtype.py
+│   │   │       ├── download_data.py
+│   │   │       ├── models        # Model-specific scripts used in the pipeline
+│   │   │       │   ├── LSTM.py
+│   │   │       │   └── XGBoost.py
+│   │   │       ├── pca.py
+│   │   │       ├── scaler.py
+│   │   │       └── upload_blob.py
+│   │   ├── docker-compose.yaml   # Docker setup for running Airflow components
+│   │   ├── plugins               # Custom plugins for Airflow
+│   │   ├── tests                 # Py tests for DAG steps
+│   │   │   ├── test_download_data.py
+│   │   │   └── test_scaler.py
+│   │   ├── wandb                 # Logs for W&B experiments
+│   │   │   └── run-20241115_215708-13bfiift
+│   │   │       └── files
+│   │   │           ├── config.yaml
+│   │   │           └── wandb-summary.json
+│   │   └── working_data          # Temporary data during Airflow execution
+│   └── README.md
+├── README.md                     # Project description and setup information
+├── requirements.txt              # Dependencies required for the project
+├── src                           # Python scripts and notebooks for model training and preprocessing
+│   ├── KNN.ipynb
+│   ├── PROJECT_DATA_CLEANING.ipynb
+│   └── XGBoost.ipynb
+└── tests                         # Additional test scripts for validation
+    ├── test_convert_column_dtype.py
+    ├── test_lagged_features.py
+    └── test_scaler.py
+
 ```
 
 ### Airflow Implementation
