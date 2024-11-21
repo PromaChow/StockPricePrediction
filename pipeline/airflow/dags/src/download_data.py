@@ -219,10 +219,11 @@ def merge_data(ticker_symbol: str) -> pd.DataFrame:
 
     gcs_file_path = "Data/pipeline/airflow/dags/data/merged_original_dataset.csv"
 
-    storage_client = storage.Client()
-    bucket = storage_client.bucket("stock_price_prediction_dataset")
-    blob = bucket.blob(gcs_file_path)
-    blob.upload_from_string(res.to_csv(index=False), "text/csv")
+    if storage_client is not None:
+        storage_client = storage.Client()
+        bucket = storage_client.bucket("stock_price_prediction_dataset")
+        blob = bucket.blob(gcs_file_path)
+        blob.upload_from_string(res.to_csv(index=False), "text/csv")
 
     if res.empty:
         logging.error("Data was NOT merged")
