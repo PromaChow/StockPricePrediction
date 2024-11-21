@@ -11,7 +11,7 @@ sys.path.append(src_path)
 from technical_indicators import add_technical_indicators
 
 
-@pytest.fixture
+# @pytest.fixture
 def sample_data():
     dates = pd.date_range(start="2021-01-01", periods=100)
     data = pd.DataFrame(
