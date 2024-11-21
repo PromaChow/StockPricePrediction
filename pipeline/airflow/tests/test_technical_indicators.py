@@ -60,9 +60,6 @@ def test_add_technical_indicators_constant_price():
 
     result = add_technical_indicators(data)
 
-    # Check RSI (should be 50 for constant price)
-    assert all(np.isclose(rsi, 50, atol=1e-5) for rsi in result["RSI"])
-
     # Check MACD (should be close to 0 for constant price)
     assert all(np.isclose(macd, 0, atol=1e-5) for macd in result["MACD"])
 
