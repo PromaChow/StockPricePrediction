@@ -35,6 +35,7 @@ if os.path.exists(path):
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = path
     storage_client = storage.Client()
 else:
+    storage_client = None
     logging.warning("------- Service key not found!")
 
 """
