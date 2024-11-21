@@ -3,7 +3,7 @@ name: Model Training
 on:
   push:
     branches:
-      - main  
+      - citest  
 
 jobs:
   train_model:
