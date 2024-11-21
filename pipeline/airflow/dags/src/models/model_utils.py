@@ -44,8 +44,11 @@ dir = os.path.dirname(dir)
 path = os.path.join(dir, "service_key_gcs.json")
 
 fs = gcsfs.GCSFileSystem()
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = path
-storage_client = storage.Client()
+if os.path.exists(path):
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = path
+    storage_client = storage.Client()
+else:
+    logging.warning("------- Service key not found!")
 
 
 # Define the data preparation function
