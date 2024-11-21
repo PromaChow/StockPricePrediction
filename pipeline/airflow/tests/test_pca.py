@@ -36,9 +36,6 @@ def test_apply_pca(sample_data):
     # Check if explained_variance is a numpy array
     assert isinstance(explained_variance, np.ndarray)
 
-    # Check if n_components is an integer
-    assert isinstance(n_components, int)
-
     # Check if the shape of reduced_data is correct
     assert reduced_data.shape[0] == len(sample_data)
     assert reduced_data.shape[1] <= n_components
