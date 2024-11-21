@@ -31,8 +31,12 @@ dir = os.path.dirname(abs_path)
 dir = os.path.dirname(dir)
 path = os.path.join(dir, "service_key_gcs.json")
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = path
-storage_client = storage.Client()
+if os.path.exists(path):
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = path
+    storage_client = storage.Client()
+else:
+    storage_client = None
+    logging.warning("------- Service key not found!")
 
 """
 Upload a file to the bucket
