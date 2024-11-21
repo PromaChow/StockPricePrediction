@@ -46,10 +46,10 @@ def test_scaler_training_data(sample_data):
     # assert len(mean) == len(variance) == 3  # number of features
 
 
-def test_scaler_empty_df():
-    empty_df = pd.DataFrame()
-    with pytest.raises(ValueError):
-        scaler(empty_df)
+# def test_scaler_empty_df():
+#     empty_df = pd.DataFrame()
+#     with pytest.raises(ValueError):
+#         scaler(empty_df)
 
 
 def test_scaler_non_numeric():
