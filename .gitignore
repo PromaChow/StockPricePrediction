@@ -300,7 +300,11 @@ miniconda3
 pipeline/airflow/artifacts/*.pkl
 pipeline/airflow/dags/service_key_gcs.json
 /striped-graph-440017-d7-79f99f8253bc.json
+/striped-graph-440017-d7-c8fdb42bc8ba.json
 miniconda3
 GCP/striped-graph-440017-d7-79f99f8253bc.json
 *.pkl
 *.h5
+/src/DVC/
+/src/Data/
+*.dvc

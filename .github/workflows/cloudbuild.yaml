@@ -6,39 +6,32 @@ steps:
     entrypoint: 'bash'
     args:
       - '-c'
-      - |
-        echo "Running syncgcp.yaml..."
-        gcloud builds submit --config=syncgcp.yaml
+      - 'echo "Syncing all files with GCP bucket..." && gcloud builds submit --config=syncgcp.yaml'
 
   # Step 2: Run pytest.yaml
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
       - '-c'
-      - |
-        echo "Running pytest.yaml..."
-        gcloud builds submit --config=PyTest.yaml
+      - 'echo "Running pytests.." && gcloud builds submit --config=PyTest.yaml'
 
   # Step 3: Run airflowtrigger.yaml
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
       - '-c'
-      - |
-        echo "Running airflowtrigger.yaml..."
-        gcloud builds submit --config=airflowtrigger.yaml
+      - 'echo "Running airflow..." && gcloud builds submit --config=airflowtrigger.yaml'
 
   # Step 4: Run model.yaml
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
       - '-c'
-      - |
-        echo "Running model.yaml..."
-        gcloud builds submit --config=model.yaml
+      - 'echo "Running model on Vertex AI..." && gcloud builds submit --config=model.yaml'
 
-# Trigger by GitHub Push
-trigger:
-  event:
-    type: PUSH
-    branch: 'main' 
+  # Step 5: Run deploy.yaml
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - 'echo "Deploy Model.." && gcloud builds submit --config=deploy.yaml'
