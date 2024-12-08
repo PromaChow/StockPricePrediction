@@ -17,6 +17,9 @@ Steps for Replication
     - The `gcloud` CLI tool installed and configured with the appropriate permissions.
     - A GitHub repository with access to GitHub Actions for automation.
     - Required IAM roles for deploying models to Vertex AI and managing Cloud Build resources.
+
+![GCP Billing Dashboard](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/104a48ddf826520ccc31374002d8df92f2015796/assets/GCP%20billing%20dashboard.png)
+
 #### 2. **Running Deployment Automation**
    - Push changes to the main branch of the GitHub repository.
    - GitHub Actions automatically triggers the CI/CD pipeline to initiate deployment using Cloud Build.
@@ -27,6 +30,9 @@ Steps for Replication
    - Test the deployed model endpoint to confirm successful deployment and validate model predictions.
    - Review monitoring dashboards to ensure no issues with prediction outputs or feature drift.
 
+![Logging Dashboard](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/104a48ddf826520ccc31374002d8df92f2015796/assets/Logging%20Dashboard.png)
+
+![Drift Detection Logging](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/104a48ddf826520ccc31374002d8df92f2015796/assets/Drift%20Detection%20logging.png)
 ---
 
 ## Model Serving and Deployment
