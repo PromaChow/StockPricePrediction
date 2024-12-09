@@ -227,8 +227,45 @@ Model validation is a crucial step to evaluate how well the selected model perfo
 ### 4. Model Bias Detection (Using Slicing Techniques)
 Bias detection ensures that the model behaves equitably across different subgroups of data.
 
+> Please refer to [Model Bias Notebook](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/c50d70f57592fa1ca139141ce09fe82099e7ea1b/src/FeatureEng_and_ModelBiasDetn.ipynb)
+
 - **Tools Used**: `Fairlearn` for data slicing and detecting model bias.
 - **Purpose**: To evaluate model fairness across various demographic or sensitive features.
+
+  - **Metrics by Slice**:
+    - High VIX Slice: Mean Squared Error (MSE): 2.04 , Mean Absolute Error (MAE): 1.14
+    - Low VIX Slice: Mean Squared Error (MSE): 1.34 , Mean Absolute Error (MAE): 0.87
+  - **Disparity Analysis**: Overall MSE Disparity: 0.70 , Overall MAE Disparity: 0.27
+
+- **ElasticNet Model Performance Summary**:
+
+  - **ElasticNet Test MSE with Resampling**: 1.37
+  - **ElasticNet Test MAE with Resampling**: 0.91
+
+  - **1. Dataset Slicing and Bias Detection**:
+    - **Slices Defined**: We defined slices based on SP500 and VIX values (high and low conditions) to evaluate model performance under different market scenarios.
+    - **Metrics Tracked**: For each slice, we tracked Mean Squared Error (MSE) and Mean Absolute Error (MAE) to assess prediction accuracy.
+    - **Results**: Initial analysis showed disparities in MSE and MAE between slices, with higher errors in some slices (e.g., high SP500), suggesting potential bias.
+
+  - **2. Bias Mitigation Technique Applied**:
+    - **Resampling**: To mitigate bias, we applied resampling to balance the training dataset, focusing on slices with less representation or higher error.
+    - **Model Re-evaluation**: After re-training the ElasticNet model on the resampled data, we saw improvements in MSE and MAE across slices, which indicated reduced disparity.
+
+  - **3. Performance Improvement After Mitigation**:
+    - **Metrics After Resampling**:
+      - **Test MSE**: Improved to 1.37.
+      - **Test MAE**: Improved to 0.91.
+    - **Disparity Reduction**: The disparity between slices decreased, showing that the model predictions were more consistent across different market conditions.
+
+  - **4. Considerations and Trade-offs**:
+    - **Trade-offs**: Resampling helped improve fairness across slices, but it may have slightly affected the model's predictive power for over-represented groups. However, our main goal was to ensure balanced fairness across conditions to minimize bias.
+    - **Future Improvements**: We could further enhance model fairness by applying additional techniques like re-weighting or fine-tuning model hyperparameters.
+
+- **Observations**:
+  - These metrics show how well the model is doing on the test set after rebalancing the training data to ensure fairness across slices defined by VIX values.
+  - The low MSE and MAE values suggest that the model's predictions are pretty close to the actual values, which means we've likely improved both fairness and overall accuracy.
+  - The high VIX slice has a higher error (MSE of 2.04) compared to the low VIX slice (MSE of 1.34). This suggests that the model struggles a bit more with accuracy when market volatility (VIX) is high.
+  - The disparity in both MSE and MAE points to a noticeable performance gap between these slices, with the model performing better under stable (low VIX) conditions.
 
 **Airflow Graph Depicting Bias Detection Task**:
 
@@ -275,7 +312,7 @@ Sensitivity analysis helps understand how changes in input features and hyperpar
 
 - **Hyperparameter Sensitivity Analysis**:
 
-  ![Hyperparameter Sensitivity](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/results_linear_regression .png)
+  ![Hyperparameter Sensitivity](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Linear%20Regression%20-%20Hyperparameter%20Sensitivity_%20model__alpha.png.png)
 
 ### 8. Experiment Tracking and Results with Weights & Biases
 

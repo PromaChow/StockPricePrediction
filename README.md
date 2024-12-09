@@ -9,7 +9,7 @@ To read all files:
    > Refer to [Assignments Submissions](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/tree/1e36981df331c0ecb44a13194e940dbe7ba8aa5b/Assignments_Submissions/) 
 
 To read current phase:
-   > Refer to [Model Development pipeline](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/tree/1e36981df331c0ecb44a13194e940dbe7ba8aa5b/Assignments_Submissions/Model%20development%20pipeline%20phase)
+   > Refer to [Model Deployment](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/tree/c50d70f57592fa1ca139141ce09fe82099e7ea1b/Assignments_Submissions/Model%20Deployment)
 
 ## Table of Contents
 - [Directory Structure](#directory-structure)
@@ -21,6 +21,8 @@ To read current phase:
 - [Test Functions](#test-functions)
 - [Reproducibility and Data Versioning](#reproducibility-and-data-versioning)
 - [Data Sources](#data-sources)
+- [Model Serving and Deployment](#model-serving-and-deployment)
+- [Monitoring and Maintenance](#monitoring-and-maintenance)
 
 ---
 
@@ -28,76 +30,40 @@ To read current phase:
 
 ```
 .
-├── artifacts                     # Stores output files like correlation matrix, trained model artifacts
-│   ├── correlation_matrix_after_removing_correlated_features.png
-│   ├── ElasticNet.pkl            # Trained model files (ElasticNet, Ridge, etc.)
-│   ├── Feature Importance for ElasticNet on Test Set.png
-│   └── Ridge.pkl
-├── assets                        # Contains images used for visualization and documentation
-│   ├── airflow_dags.jpeg
-│   ├── gcpbucket.png
-│   └── overview_charts_all_runs.png
-├── Assignments_Submissions       # Stores submission documents for different project phases
-│   ├── DataPipeline Phase
-│   │   ├── Airflow README.md
-│   │   └── Project README.md
-│   └── Scoping Phase
-│       ├── Data Collection Group 10.pdf
-│       └── Group 10 Scoping Document.pdf
-├── data                          # Stores raw and preprocessed data files
-│   ├── ADS_Index.csv
-│   └── preprocessed
-│       ├── final_dataset.csv
-│       └── merged_original_dataset.csv
-├── GCP                           # Configuration and scripts for Google Cloud operations
-│   ├── application_default_credentials.json
-│   ├── deploy.yml
-│   └── synclocal.ipynb
-├── models                        # Jupyter notebooks and model checkpoint files
-│   ├── KNN.ipynb
-│   ├── model_checkpoints_Ridge.pkl
-│   └── XGBoost.ipynb
-├── pipeline
-│   ├── airflow
-│   │   ├── artifacts             # Stores intermediate artifacts for Airflow processing
-│   │   │   ├── pca_components.png
-│   │   │   └── yfinance_time_series.png
-│   │   ├── dags                  # DAG scripts for orchestrating data and model pipelines
-│   │   │   ├── airflow.py
-│   │   │   ├── data              # Data used in Airflow DAG processing
-│   │   │   │   ├── ADS_index.csv
-│   │   │   │   └── merged_original_dataset.csv
-│   │   │   └── src               # Python scripts for various DAG steps (e.g., data preprocessing)
-│   │   │       ├── convert_column_dtype.py
-│   │   │       ├── download_data.py
-│   │   │       ├── models        # Model-specific scripts used in the pipeline
-│   │   │       │   ├── LSTM.py
-│   │   │       │   └── XGBoost.py
-│   │   │       ├── pca.py
-│   │   │       ├── scaler.py
-│   │   │       └── upload_blob.py
-│   │   ├── docker-compose.yaml   # Docker setup for running Airflow components
-│   │   ├── plugins               # Custom plugins for Airflow
-│   │   ├── tests                 # Py tests for DAG steps
-│   │   │   ├── test_download_data.py
-│   │   │   └── test_scaler.py
-│   │   ├── wandb                 # Logs for W&B experiments
-│   │   │   └── run-20241115_215708-13bfiift
-│   │   │       └── files
-│   │   │           ├── config.yaml
-│   │   │           └── wandb-summary.json
-│   │   └── working_data          # Temporary data during Airflow execution
-│   └── README.md
-├── README.md                     # Project description and setup information
-├── requirements.txt              # Dependencies required for the project
-├── src                           # Python scripts and notebooks for model training and preprocessing
-│   ├── KNN.ipynb
-│   ├── PROJECT_DATA_CLEANING.ipynb
-│   └── XGBoost.ipynb
-└── tests                         # Additional test scripts for validation
-    ├── test_convert_column_dtype.py
-    ├── test_lagged_features.py
-    └── test_scaler.py
+├── artifacts                      
+│   ├── drift_detection_log.txt
+│   └── schema.pbtxt
+├── assets                         # Visual assets for monitoring and documentation
+│   ├── airflow*, gcp*, and github* related images
+│   ├── Logging Dashboard, Model Monitoring, and Vertex AI images
+│   ├── feature engineering, PCA, and deployment visuals
+│   └── other analysis-related graphics
+├── Assignments_Submissions        # Reports and documentation
+│   ├── DataPipeline Phase         # Includes README and pipeline documentation
+│   ├── Model Deployment           # Deployment phase documentation
+│   ├── Model Development Pipeline Phase
+│   ├── Scoping Phase              # Scoping reports and user needs
+├── data                           # Raw and preprocessed datasets
+│   ├── raw                        # Unprocessed datasets
+│   ├── preprocessed               # Cleaned datasets
+├── GCP                            # Google Cloud-related files and scripts
+│   ├── application credentials, deployment configs
+│   ├── gcpdeploy                  # Scripts for training and serving models
+│   └── wandb                      # Weights & Biases logs and metadata
+├── pipeline                       # Pipeline scripts and configurations
+│   ├── airflow                    # DAGs, logs, and DAG-related scripts
+│   ├── dags/data                  # Data source files for pipeline tasks
+│   ├── artifacts                  # Artifacts generated from DAGs
+│   ├── tests                      # Unit test scripts for pipeline tasks
+│   └── wandb                      # Workflow and run logs
+├── src                            # Core source code (Py script, Notebook, Model scripts)
+│   ├── Data
+│   ├── best_model.py
+│   └── Datadrift_detection_updated.ipynb
+├── requirements.txt               # Python dependencies
+├── dockerfile                
+├── LICENSE                        
+└── README.md                      # Main documentation
 
 ```
 
@@ -331,6 +297,161 @@ We used **DVC (Data Version Control)** for files management.
 3. **FRED Variables**: Includes various economic indicators, such as AMERIBOR, NIKKEI 225, and VIX.
 4. **YFinance**: Pulls historical stock data ('GOOGL') for financial time-series analysis.
 
+---
+
+## Model Serving and Deployment
+
+Workflows and setups for managing machine learning pipelines on Vertex AI in Google Cloud are as follows:
+
+1. **Jupyter Notebooks in Vertex AI Workbench**:
+   - The setup includes instances like `group10-test-vy` and `mlops-group10`, both configured for NumPy/SciPy and scikit-learn environments. These notebooks are GPU-enabled, optimizing their utility for intensive ML operations.
+
+2. **Training Pipelines**:
+   - Multiple training pipelines are orchestrated on Vertex AI, such as `mlops-group10` and `group10-model-train`. These are primarily custom training pipelines aimed at tasks like hyperparameter tuning, training, and validation, leveraging the scalability of Google Cloud's infrastructure.
+
+3. **Metadata Management**:
+   - Metadata tracking is managed through Vertex AI Metadata Store, with records such as `vertex_dataset`. This ensures reproducibility and streamlined monitoring of all artifacts produced during ML workflows.
+
+4. **Model Registry**:
+   - Deployed models like `mlops-group10-deploy` and `group10-model` are maintained in the model registry. The registry supports versioning and deployment tracking for consistency and monitoring.
+
+5. **Endpoints for Online Prediction**:
+   - Various endpoints, such as `mlops-group10-deploy` and `testt`, are active and ready for predictions. The setup is optimized for real-time online predictions, and monitoring can be enabled for anomaly detection or drift detection.
+
+### Steps for Deployment of Trained Models
+1. **Model Registration**: Once a model is trained, register it in Vertex AI's Model Registry. Specify the model name, version, and any relevant metadata.
+
+![Vertex AI Jupyter Notebooks](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Vertex%20Ai%20jupyter%20notebooks.png)
+
+![Model Serving](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Model%20serving.png)
+
+![Vertex AI Model Registry](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Vertex%20Ai%20model%20registry.png)
+
+2. **Create an Endpoint**: 
+   - In Vertex AI, create an endpoint. This endpoint will act as the interface for serving predictions.
+   - Navigate to Vertex AI > Online prediction > Endpoints > Create.
+   - Assign a name and select the appropriate region.
+
+![Vertex AI Endpoints](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Vertex%20Ai%20endpoints.png)
+
+3. **Deploy the Model to an Endpoint**:
+   - Select the registered model and choose "Deploy to Endpoint".
+   - Configure the deployment settings such as machine type, traffic splitting among model versions, and whether to enable logging or monitoring.
+   - Confirm deployment which will make the model ready to serve predictions.
+
+![Vertex AI Model Development Training](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Vertex%20Ai%20model%20development%20training.png)
+
+### Model Versioning
+- **Manage Versions**: In Vertex AI, each model can have multiple versions allowing easy rollback and version comparison.
+- **Update Versions**: Upload new versions of the model to the Model Registry and adjust the endpoint configurations to direct traffic to the newer version.
+
+### Deployment Automation
+#### Continuous Integration and Deployment Pipeline
+- **Automate Deployments**: Use GitHub Actions and Google Cloud Build to automate the deployment of new model versions from a repository.
+- **CI/CD Pipeline Configuration**:
+   - **GitHub Actions**: Configure workflows in `.github/workflows/` directory to automate testing, building, and deploying models.
+   - **Cloud Build**: Create a `cloudbuild.yaml` file specifying steps to build, test, and deploy models based on changes in the repository.
+
+![GitHub Actions CI/CD](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Github%20Actions%20CICD.png)
+
+---
+
+#### Automated Deployment Scripts
+- **Script Functions**:
+  - **Pull the Latest Model**: Scripts should fetch the latest model version from Vertex AI Model Registry or a specified repository.
+  - **Deploy or Update Model**: Automate the deployment of the model to the configured Vertex AI endpoint.
+  - **Monitor and Log**: Set up logging for deployment status to ensure visibility and troubleshooting capabilities.
+
+---
+#### **1. `airflowtrigger.yaml`**
+- **Purpose**: Triggers and manages Apache Airflow DAG workflows.
+- **Steps**:
+  - **Set up environment**: Installs Python, dependencies, and Docker Compose.
+  - **Airflow initialization**: Starts Airflow services and checks their status.
+  - **DAG management**: Lists, triggers, and monitors DAG execution (success or failure).
+  - **Cleanup**: Stops Airflow services and removes unnecessary files.
+
+---
+
+#### **2. `deploy.yaml`**
+- **Purpose**: Deploys and monitors a machine learning model on Vertex AI.
+- **Steps**:
+  - **Environment setup**: Configures Google Cloud SDK using secrets.
+  - **Model deployment**: Deploys a trained model to Vertex AI endpoints.
+  - **Monitoring**: Fetches the latest model and endpoint IDs and sets them for further monitoring.
+
+---
+
+#### **3. `model.yml`**
+- **Purpose**: Handles training and packaging a machine learning model for deployment.
+- **Steps**:
+  - **Trainer creation**: Builds a Python package (`trainer`) for model training.
+  - **Package upload**: Uploads the trainer package to Google Cloud Storage.
+  - **Training job**: Triggers a Vertex AI custom training job using the uploaded package.
+  - **Notification**: Indicates the completion of the training process.
+
+---
+
+#### **4. `PyTest.yaml`**
+- **Purpose**: Runs Python unit tests and generates test coverage reports.
+- **Steps**:
+  - **Environment setup**: Installs dependencies and Google Cloud CLI.
+  - **Testing**: Runs tests with pytest, generates coverage reports, and uploads them as artifacts.
+  - **Upload results**: Saves coverage reports to a GCP bucket for review.
+
+---
+
+#### **5. `syncgcp.yaml`**
+- **Purpose**: Synchronizes local artifacts and Airflow DAGs with a Google Cloud Storage bucket.
+- **Steps**:
+  - **Environment setup**: Installs the Google Cloud CLI and authenticates with a service account.
+  - **File uploads**:
+    - Uploads specific artifacts and files to predefined GCP bucket locations.
+    - Synchronizes repository content with the bucket directory structure.
+  - **Verification**: Lists uploaded files to confirm the sync.
+---
+
+![GitHub Actions](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Github%20Workflows.png)
+
+
+#### Summary
+These YAML workflows automate various aspects of an ML lifecycle:
+1. **`airflowtrigger.yaml`**: Airflow DAG management.
+2. **`deploy.yaml`**: Vertex AI deployment and monitoring.
+3. **`model.yml`**: Training pipeline and GCS uploads.
+4. **`PyTest.yaml`**: Testing and reporting.
+5. **`syncgcp.yaml`**: Artifact and DAG synchronization with GCP.
+
+Each workflow is tailored for a specific task in CI/CD for ML operations, leveraging GitHub Actions and Google Cloud services.
+
+---
+
+## Monitoring and Maintenance
+
+1. **Monitoring**:
+   - Vertex AI provides dashboards to monitor model performance and data drift.
+   - Alerts are configured to notify stakeholders when anomalies, such as feature attribution drift, are detected.
+
+![Model Monitoring Notification](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Model%20Monitoring%20notification.png)
+
+
+![Model Monitoring Anomalies](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Model%20monitoring%20Anomolies.png)
+
+The provided images highlight the active setup and management of a Vertex AI model monitoring system. Files like `anomalies.json` and `anomalies.textproto` document identified issues in the input data. The structure also includes folders such as `baseline`, `logs`, and `metrics`, which organize monitoring data effectively for future analysis. A notification email confirming the creation of a model monitoring job for a specific Vertex AI endpoint. This email provides essential details, such as the endpoint name, monitoring job link, and the GCS bucket path where statistics and anomalies will be saved. 
+
+2. **Maintenance**:
+   - Pre-configured thresholds for model performance trigger retraining or redeployment of updated models.
+   - Logs and alerts from Vertex AI and Cloud Build ensure the system remains reliable and scalable.
+
+![Monitor Details](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Monitor%20details.png)
+
+![Logging Dashboard](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Logging%20Dashboard.png)
+
+![Monitor Feature Detection](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Monitor%20feature%20detection.png)
+
+![Monitor Drift Detection](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Monitor%20drift%20detection.png)
+
+---
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/2abdea96ee56b51357cd519a9f5e89126b9c87bb/LICENSE) file.

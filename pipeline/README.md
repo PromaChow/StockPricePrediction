@@ -8,6 +8,8 @@ This section explains the DAGs pipeline implemented using Apache Airflow for wor
 - [Pipeline Components](#pipeline-components)
 - [Setup and Usage](#setup-and-usage)
 - [Data Sources](#data-sources)
+- [Model Serving and Deployment](#model-serving-and-deployment)
+- [Monitoring and Maintenance](#monitoring-and-maintenance)
 
 ---
 
@@ -20,8 +22,8 @@ This section explains the DAGs pipeline implemented using Apache Airflow for wor
 │   │   ├── correlation_matrix_after_removing_correlated_features.png
 │   │   ├── Feature Importance for ElasticNet on Test Set.png
 │   │   ├── Feature Importance for Lasso on Test Set.png
-│   │   ├── Linear Regression - Hyperparameter Sensitivity: model__alpha.png
-│   │   ├── Linear Regression - Hyperparameter Sensitivity: model__l1_ratio.png
+│   │   ├── Linear Regression - Hyperparameter Sensitivity model__alpha.png
+│   │   ├── Linear Regression - Hyperparameter Sensitivity model__l1_ratio.png
 │   │   ├── pca_components.png
 │   │   └── yfinance_time_series.png
 │   ├── dags                          # Contains Airflow DAGs
@@ -158,3 +160,5 @@ To set up and run the pipeline:
 2. **Fama-French Factors**: Provides historical data for financial research.
 3. **FRED Variables**: Includes various economic indicators, such as AMERIBOR, NIKKEI 225, and VIX.
 4. **YFinance**: Pulls historical stock data ('GOOGL') for financial time-series analysis.
+
+---

@@ -18,7 +18,7 @@ Steps for Replication
     - A GitHub repository with access to GitHub Actions for automation.
     - Required IAM roles for deploying models to Vertex AI and managing Cloud Build resources.
 
-![GCP Billing Dashboard](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/104a48ddf826520ccc31374002d8df92f2015796/assets/GCP%20billing%20dashboard.png)
+![GCP Billing Dashboard](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/GCP%20billing%20dashboard.png)
 
 #### 2. **Running Deployment Automation**
    - Push changes to the main branch of the GitHub repository.
@@ -31,7 +31,7 @@ Steps for Replication
    - Test the deployed model endpoint to confirm successful deployment and validate model predictions.
    - Review monitoring dashboards to ensure no issues with prediction outputs or feature drift.
 
-![Drift Detection Logging](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/104a48ddf826520ccc31374002d8df92f2015796/assets/Drift%20Detection%20logging.png)
+![Drift Detection Logging](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Drift%20Detection%20logging.png)
 
 ---
 
@@ -57,25 +57,25 @@ Workflows and setups for managing machine learning pipelines on Vertex AI in Goo
 ### Steps for Deployment of Trained Models
 1. **Model Registration**: Once a model is trained, register it in Vertex AI's Model Registry. Specify the model name, version, and any relevant metadata.
 
-![Vertex AI Jupyter Notebooks](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/104a48ddf826520ccc31374002d8df92f2015796/assets/Vertex%20Ai%20jupyter%20notebooks.png)
+![Vertex AI Jupyter Notebooks](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Vertex%20Ai%20jupyter%20notebooks.png)
 
-![Model Serving](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/104a48ddf826520ccc31374002d8df92f2015796/assets/Model%20serving.png)
+![Model Serving](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Model%20serving.png)
 
-![Vertex AI Model Registry](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/104a48ddf826520ccc31374002d8df92f2015796/assets/Vertex%20Ai%20model%20registry.png)
+![Vertex AI Model Registry](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Vertex%20Ai%20model%20registry.png)
 
 2. **Create an Endpoint**: 
    - In Vertex AI, create an endpoint. This endpoint will act as the interface for serving predictions.
    - Navigate to Vertex AI > Online prediction > Endpoints > Create.
    - Assign a name and select the appropriate region.
 
-![Vertex AI Endpoints](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/104a48ddf826520ccc31374002d8df92f2015796/assets/Vertex%20Ai%20endpoints.png)
+![Vertex AI Endpoints](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Vertex%20Ai%20endpoints.png)
 
 3. **Deploy the Model to an Endpoint**:
    - Select the registered model and choose "Deploy to Endpoint".
    - Configure the deployment settings such as machine type, traffic splitting among model versions, and whether to enable logging or monitoring.
    - Confirm deployment which will make the model ready to serve predictions.
 
-![Vertex AI Model Development Training](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/104a48ddf826520ccc31374002d8df92f2015796/assets/Vertex%20Ai%20model%20development%20training.png)
+![Vertex AI Model Development Training](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Vertex%20Ai%20model%20development%20training.png)
 
 ### Model Versioning
 - **Manage Versions**: In Vertex AI, each model can have multiple versions allowing easy rollback and version comparison.
@@ -88,7 +88,7 @@ Workflows and setups for managing machine learning pipelines on Vertex AI in Goo
    - **GitHub Actions**: Configure workflows in `.github/workflows/` directory to automate testing, building, and deploying models.
    - **Cloud Build**: Create a `cloudbuild.yaml` file specifying steps to build, test, and deploy models based on changes in the repository.
 
-![GitHub Actions CI/CD](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/104a48ddf826520ccc31374002d8df92f2015796/assets/Github%20Actions%20CICD.png)
+![GitHub Actions CI/CD](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Github%20Actions%20CICD.png)
 
 ---
 
@@ -147,7 +147,7 @@ Workflows and setups for managing machine learning pipelines on Vertex AI in Goo
   - **Verification**: Lists uploaded files to confirm the sync.
 ---
 
-![GitHub Actions](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/104a48ddf826520ccc31374002d8df92f2015796/assets/Github%20Workflows.png)
+![GitHub Actions](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Github%20Workflows.png)
 
 
 #### Summary
@@ -167,10 +167,10 @@ Each workflow is tailored for a specific task in CI/CD for ML operations, levera
    - Vertex AI provides dashboards to monitor model performance and data drift.
    - Alerts are configured to notify stakeholders when anomalies, such as feature attribution drift, are detected.
 
-![Model Monitoring Notification](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/104a48ddf826520ccc31374002d8df92f2015796/assets/Model%20Monitoring%20notification.png)
+![Model Monitoring Notification](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Model%20Monitoring%20notification.png)
 
 
-![Model Monitoring Anomalies](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/104a48ddf826520ccc31374002d8df92f2015796/assets/Model%20monitoring%20Anomolies.png)
+![Model Monitoring Anomalies](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Model%20monitoring%20Anomolies.png)
 
 The provided images highlight the active setup and management of a Vertex AI model monitoring system. Files like `anomalies.json` and `anomalies.textproto` document identified issues in the input data. The structure also includes folders such as `baseline`, `logs`, and `metrics`, which organize monitoring data effectively for future analysis. A notification email confirming the creation of a model monitoring job for a specific Vertex AI endpoint. This email provides essential details, such as the endpoint name, monitoring job link, and the GCS bucket path where statistics and anomalies will be saved. 
 
@@ -178,14 +178,13 @@ The provided images highlight the active setup and management of a Vertex AI mod
    - Pre-configured thresholds for model performance trigger retraining or redeployment of updated models.
    - Logs and alerts from Vertex AI and Cloud Build ensure the system remains reliable and scalable.
 
-![Monitor Details](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/104a48ddf826520ccc31374002d8df92f2015796/assets/Monitor%20details.png)
+![Monitor Details](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Monitor%20details.png)
 
-![Logging Dashboard](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/104a48ddf826520ccc31374002d8df92f2015796/assets/Logging%20Dashboard.png)
+![Logging Dashboard](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Logging%20Dashboard.png)
 
-![Monitor Feature Detection](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/104a48ddf826520ccc31374002d8df92f2015796/assets/Monitor%20feature%20detection.png)
+![Monitor Feature Detection](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Monitor%20feature%20detection.png)
 
-![Monitor Drift Detection](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/104a48ddf826520ccc31374002d8df92f2015796/assets/Monitor%20drift%20detection.png)
-
+![Monitor Drift Detection](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Monitor%20drift%20detection.png)
 
 ---
 
