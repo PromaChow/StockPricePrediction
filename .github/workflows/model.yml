@@ -88,7 +88,7 @@ jobs:
         gcloud ai custom-jobs create \
           --region=${{ secrets.GOOGLE_CLOUD_REGION }} \
           --display-name=model-training \
-          --args="--data-path=gs://${{ secrets.GCS_BUCKET_NAME }}/data/training_data.csv --epochs=10 --batch-size=32" \
+          --args="--data-path=gs://${{ secrets.GCS_BUCKET_NAME }}/pipeline/airflow/dags/data/scaled_data_train.csv --epochs=10 --batch-size=32" \
           --python-package-uris=gs://${{ secrets.GCS_BUCKET_NAME }}/trainer/trainer-0.1.tar.gz \
           --worker-pool-spec="machine-type=e2-standard-4,executor-image-uri=us-docker.pkg.dev/vertex-ai/training/tf-cpu.2-9:latest,python-module=trainer.task"
 

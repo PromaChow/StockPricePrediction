@@ -3,6 +3,7 @@ from google.cloud import storage
 import pandas as pd
 import gcsfs
 import sys
+import logging
 
 sys.path.append(os.path.abspath("pipeline/airflow"))
 sys.path.append(os.path.abspath("."))
@@ -44,24 +45,19 @@ Upload a file to the bucket
 
 
 def upload_blob(data, gcs_file_path: str = None):
-    # """Uploads a file to the bucket."""
-
-    # if gcs_file_path is None:
-    #     gcs_file_path = "gs://stock_price_prediction_dataset/Data/pipeline/airflow/dags/data/final_dataset_for_modeling.csv"
-
-    # data.to_csv(gcs_file_path, index=False)
     """
     upload_from_string()
     upload_from_file()
     upload_from_filename()
     """
-    if gcs_file_path is None:
-        gcs_file_path = "gs://stock_price_prediction_dataset/Data/pipeline/airflow/dags/data/final_dataset_for_modeling.csv"
 
-    storage_client = storage.Client()
-    bucket = storage_client.bucket("stock_price_prediction_dataset")
-    blob = bucket.blob(gcs_file_path)
-    blob.upload_from_string(data.to_csv(index=False), "text/csv")
+    gcs_file_path = "Data/pipeline/airflow/dags/data/final_dataset_for_modeling.csv"
+
+    if storage_client is not None:
+        bucket = storage_client.bucket("stock_price_prediction_dataset")
+        blob = bucket.blob(gcs_file_path)
+        blob.upload_from_string(data.to_csv(index=False), "text/csv")
+
     return True
 
 
@@ -78,4 +74,4 @@ if __name__ == "__main__":
     technical_indicators_data = add_technical_indicators(feature_interactions_data)
     scaled_data = scaler(technical_indicators_data)
     upload_blob(scaled_data)
-    print("done!!")
+    # print("done!!")
