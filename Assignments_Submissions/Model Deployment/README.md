@@ -6,7 +6,7 @@
 - [Model Serving and Deployment](#model-serving-and-deployment)
 - [Monitoring and Maintenance](#monitoring-and-maintenance)
 - [Notifications](#notifications)
-
+- [UI Dashboard for Stock Price Prediction](#ui-dashboard-for-stock-price-predictor)
 ---
 
 ## Prerequisites
@@ -62,11 +62,11 @@ Workflows and setups for managing machine learning pipelines on Vertex AI in Goo
 ### Steps for Deployment of Trained Models
 1. **Model Registration**: Once a model is trained, register it in Vertex AI's Model Registry. Specify the model name, version, and any relevant metadata.
 
-![Vertex AI Jupyter Notebooks](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Vertex%20AI%20jupyter%20notebooks.png)
+![Vertex AI Jupyter Notebooks](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v3.1/assets/Vertex%20AI%20jupyter%20notebooks.png)
 
 ![Model Serving](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Model%20serving.png)
 
-![Vertex AI Model Registry](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Vertex%20Ai%20model%20registry.png)
+![Vertex AI Model Registry](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v3.1/assets/Vertex%20AI%20model%20registry.png)
 
 2. **Create an Endpoint**: 
    - In Vertex AI, create an endpoint. This endpoint will act as the interface for serving predictions.
@@ -80,7 +80,7 @@ Workflows and setups for managing machine learning pipelines on Vertex AI in Goo
    - Configure the deployment settings such as machine type, traffic splitting among model versions, and whether to enable logging or monitoring.
    - Confirm deployment which will make the model ready to serve predictions.
 
-![Vertex AI Model Development Training](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Vertex%20AI%20model%20development%20training.png)
+![Vertex AI Model Development Training](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v3.1/assets/Vertex%20AI%20model%20development%20training.png)
 
 ### Model Versioning
 - **Manage Versions**: In Vertex AI, each model can have multiple versions allowing easy rollback and version comparison.
@@ -138,7 +138,7 @@ Workflows and setups for managing machine learning pipelines on Vertex AI in Goo
      - Enables monitoring for performance and feature/data drift.
    - **Triggers:** On push to `main` 
 
-![Deploy and Monitor Workflow](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Deploy%20and%20monitor%20action.png)
+![Deploy and Monitor Workflow](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v3.1/assets/Deploy%20and%20monitor%20action.png)
 
 #### 4. **Train and Deploy Workflow**
    - **File:** `train_deploy.yaml`
@@ -149,7 +149,7 @@ Workflows and setups for managing machine learning pipelines on Vertex AI in Goo
      - Deploys the trained model to a new or existing endpoint.
    - **Triggers:** On push to `main`
 
-![Train Workflow](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v3.1/assets/train%20deploy%20github%20action.png)
+![Train Workflow](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v3.1/assets/Train%20deploy%20github%20action.png)
 
 #### 5. **Pytest Workflow**
    - **File:** Not explicitly listed (part of repository tests).
@@ -186,7 +186,7 @@ These YAML workflows automate various aspects of an ML lifecycle:
 5. **`syncgcp.yaml`**: Artifact and DAG synchronization with GCP.
 6. **`deploy_monitor.yaml`**: Deploys the trained model, monitoring for model performance and data drift.
 
-Each workflow is tailored for a specific task in CI/CD for ML operations, leveraging GitHub Actions and Google Cloud services.
+- Each workflow is tailored for a specific task in CI/CD for ML operations, leveraging GitHub Actions and Google Cloud services.
 ---
 
 ## Monitoring and Maintenance
@@ -236,3 +236,44 @@ This email is sent when a model monitoring job partially fails, providing detail
 This email is triggered when the Vertex AI monitoring job detects data drift or anomalies in the deployed model. It provides links for further investigation.
 
 ![Anomaly and Data Drift Detection Notification](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v3.1/assets/Vertex%20AI%20Anomoly%20and%20Datadrift%20notify.png)  
+
+## UI Dashboard for Stock Price Predictor
+
+The **Stock Price Predictor UI Dashboard** is a user-friendly interface designed to analyzing stock trends and making informed financial decisions. This dashboard, running locally at [http://127.0.0.1:5001](http://127.0.0.1:5001), provides a good experience for users to explore stock predictions and insights.
+
+### Running the Dashboard
+
+To launch the application:
+
+1. Run the following command:
+   ```bash
+   python app/app.py
+   ```
+
+2. Access the dashboard at:
+   [http://127.0.0.1:5001](http://127.0.0.1:5001)
+
+This dashboard bridges the gap between raw stock data and actionable investment strategies, making financial decision-making easier and more efficient.
+
+### Key Features
+
+1. **Homepage**: 
+   - Provides an overview of the tool's capabilities and purpose.
+   - Highlights the integration of machine learning with financial decision-making.
+
+   ![Homepage](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/63ef3b06820c954454afe53fd669159ebb54bf34/assets/UI_Dashboard_homepage.png)
+
+2. **Prediction Page**:
+   - Displays the **current stock price** and the **predicted price**.
+   - Includes options to "Buy" or "Sell" based on the predicted price trend.
+   - Offers a gamified experience to engage users in testing their predictions.
+
+   ![Prediction Dashboard](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/63ef3b06820c954454afe53fd669159ebb54bf34/assets/UI_Dashboard_predict.png)
+
+3. **Visualization Dashboard**:
+   - Features dynamic and interactive charts to compare actual vs. predicted stock prices.
+   - Provides insights into stock trends.
+
+   ![Visualization Dashboard](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/63ef3b06820c954454afe53fd669159ebb54bf34/assets/UI_Dashboard_visuals.png)
+
+---
