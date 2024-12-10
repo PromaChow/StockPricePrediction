@@ -7,7 +7,17 @@ This section explains the DAGs pipeline implemented using Apache Airflow for wor
 - [Airflow Implementation](#airflow-implementation)
 - [Pipeline Components](#pipeline-components)
 - [Setup and Usage](#setup-and-usage)
-- [Data Sources](#data-sources)
+- [Airflow Environment Details](#airflow-environment-details)
+- [CI/CD Pipeline Documentation and Structure Overview](#cicd-pipeline-documentation-and-structure-overview)
+
+1. [Loading Data from the Data Pipeline](#1-loading-data-from-the-data-pipeline)
+2. [Training and Selecting the Best Model](#2-training-and-selecting-the-best-model)
+3. [Model Validation](#3-model-validation)
+4. [Model Bias Detection (Using Slicing Techniques)](#4-model-bias-detection-using-slicing-techniques)
+5. [Bias Detection and Mitigation Strategies](#5-bias-detection-and-mitigation-strategies)
+6. [Hyperparameter Tuning](#6-hyperparameter-tuning)
+7. [Model Sensitivity Analysis](#7-model-sensitivity-analysis)
+8. [Experiment Tracking and Results with Weights & Biases](#8-experiment-tracking-and-results-with-weights--biases)
 
 ---
 
@@ -159,9 +169,6 @@ To set up and run the pipeline:
 
 ---
 
-# Model Development Pipeline Phase
-
-## Contents
 1. [Loading Data from the Data Pipeline](#1-loading-data-from-the-data-pipeline)
 2. [Training and Selecting the Best Model](#2-training-and-selecting-the-best-model)
 3. [Model Validation](#3-model-validation)
@@ -223,6 +230,7 @@ Model validation is a crucial step to evaluate how well the selected model perfo
 **Airflow Gantt Chart for Model Validation**:
 
 ![Airflow Gantt Chart](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/airflow_gantt.png)
+
 
 ### 4. Model Bias Detection (Using Slicing Techniques)
 Bias detection ensures that the model behaves equitably across different subgroups of data.
@@ -312,7 +320,7 @@ Sensitivity analysis helps understand how changes in input features and hyperpar
 
 - **Hyperparameter Sensitivity Analysis**:
 
-  ![Hyperparameter Sensitivity](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Linear%20Regression%20-%20Hyperparameter%20Sensitivity_%20model__alpha.png.png)
+  ![Hyperparameter Sensitivity](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/257dc9560a2e3741e7e383bd63d00340c193c9c0/assets/Linear%20Regression%20-%20Hyperparameter%20Sensitivity_%20model__alpha.png)
 
 ### 8. Experiment Tracking and Results with Weights & Biases
 
@@ -342,8 +350,6 @@ In the model development process, we leveraged Weights & Biases (W&B) to meticul
 
 
 ---
-
-# Model Development Phase
 
 ## CI/CD Pipeline Documentation and Structure Overview
 
@@ -414,6 +420,11 @@ The model is deployed using **Google Cloud Run** after a successful DAG run. Clo
 The CI/CD pipeline also includes a **rollback mechanism** for both model versions and deployments.
 
 ### Rolling Back Model Deployment
+#### Cloud Build Trigger and Artifact Publishing
+The GCP Artifact Registry is used to store Docker images and other build artifacts necessary for deploying models and related workflows.
+
+![Artifact Registry](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v3.1/assets/Artifact%20registry.png)  
+
 A **Cloud Run trigger** (`mlops10trigger`) can be configured to roll back to a previous stable version in case any issue arises with the latest deployment.
 
 ![Cloud Run Trigger for Rollback](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/mlops10trigger.png)
@@ -428,11 +439,3 @@ The trained models are automatically pushed to **GCP Artifact Registry** to stor
 All the model checkpoints, including `ElasticNet.pkl`, `LSTM.pkl`, `Lasso.pkl`, etc., are saved in the GCS bucket for version tracking and recovery.
 
 ![Model Checkpoints in GCP Bucket](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/model_checkpoints.png)
-
-## GitHub Actions for CI/CD
-**GitHub Actions** is used for CI/CD automation of the repository. It automatically builds and deploys updates after successful commits.
-
-### Cloud Build Trigger and Artifact Publishing
-A detailed screenshot of the CI/CD trigger setup and successful execution logs from GitHub is shown below:
-
-![GitHub Actions - CI/CD Pipeline](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v1.0/assets/mlops10trigger.png)

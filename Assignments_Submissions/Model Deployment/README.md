@@ -5,6 +5,7 @@
 - [Prerequisites](#prerequisites)
 - [Model Serving and Deployment](#model-serving-and-deployment)
 - [Monitoring and Maintenance](#monitoring-and-maintenance)
+- [Notifications](#notifications)
 
 ---
 
@@ -18,7 +19,7 @@ Steps for Replication
     - A GitHub repository with access to GitHub Actions for automation.
     - Required IAM roles for deploying models to Vertex AI and managing Cloud Build resources.
 
-![GCP Billing Dashboard](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/GCP%20billing%20dashboard.png)
+![GCP Billing Dashboard](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/257dc9560a2e3741e7e383bd63d00340c193c9c0/assets/GCP%20billing%20dashbgoard.png)
 
 #### 2. **Running Deployment Automation**
    - Push changes to the main branch of the GitHub repository.
@@ -32,6 +33,10 @@ Steps for Replication
    - Review monitoring dashboards to ensure no issues with prediction outputs or feature drift.
 
 ![Drift Detection Logging](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Drift%20Detection%20logging.png)
+
+> Please refer to [Data drift Notebook](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/c79c65ec5044c5935e2e3052730dac3a9778c51a/src/Datadrift_detection_updated.ipynb)
+
+- **The drift detection** process identifies significant shifts in data patterns by analyzing key statistical metrics across features such as Volume, RSI, MACD, MA20, and SP500_VIXCLS_ratio. Metrics like mean, variance, and percentile differences reveal substantial deviations, indicating changes in data distribution. For example, Volume shows a mean difference of `1.083e+16` and variance difference of `0.591`, while RSI highlights deviations in its 50th percentile and variance. MACD and MA20 exhibit notable shifts in percentiles, suggesting changes in trend-related features, and SP500_VIXCLS_ratio reveals variability in market volatility. These findings emphasize the need to monitor data sources, adjust preprocessing pipelines, and potentially retrain models to maintain prediction accuracy and ensure model reliability in dynamic environments.
 
 ---
 
@@ -57,7 +62,7 @@ Workflows and setups for managing machine learning pipelines on Vertex AI in Goo
 ### Steps for Deployment of Trained Models
 1. **Model Registration**: Once a model is trained, register it in Vertex AI's Model Registry. Specify the model name, version, and any relevant metadata.
 
-![Vertex AI Jupyter Notebooks](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Vertex%20Ai%20jupyter%20notebooks.png)
+![Vertex AI Jupyter Notebooks](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Vertex%20AI%20jupyter%20notebooks.png)
 
 ![Model Serving](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Model%20serving.png)
 
@@ -75,7 +80,7 @@ Workflows and setups for managing machine learning pipelines on Vertex AI in Goo
    - Configure the deployment settings such as machine type, traffic splitting among model versions, and whether to enable logging or monitoring.
    - Confirm deployment which will make the model ready to serve predictions.
 
-![Vertex AI Model Development Training](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Vertex%20Ai%20model%20development%20training.png)
+![Vertex AI Model Development Training](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Vertex%20AI%20model%20development%20training.png)
 
 ### Model Versioning
 - **Manage Versions**: In Vertex AI, each model can have multiple versions allowing easy rollback and version comparison.
@@ -99,52 +104,74 @@ Workflows and setups for managing machine learning pipelines on Vertex AI in Goo
   - **Monitor and Log**: Set up logging for deployment status to ensure visibility and troubleshooting capabilities.
 
 ---
-#### **1. `airflowtrigger.yaml`**
-- **Purpose**: Triggers and manages Apache Airflow DAG workflows.
-- **Steps**:
-  - **Set up environment**: Installs Python, dependencies, and Docker Compose.
-  - **Airflow initialization**: Starts Airflow services and checks their status.
-  - **DAG management**: Lists, triggers, and monitors DAG execution (success or failure).
-  - **Cleanup**: Stops Airflow services and removes unnecessary files.
+### Workflows Overview
 
----
+#### 1. **Airflow DAG Trigger Workflow**
+   - **File:** `airflowtrigeer.yaml`
+   - **Purpose:** Initializes Airflow, starts required services, triggers a DAG (`Group10_DataPipeline_MLOps`), and monitors its execution.
+   - **Key Steps:**
+     - Sets up Python and dependencies.
+     - Initializes and starts Airflow services via Docker Compose.
+     - Triggers the specified Airflow DAG and monitors its status until completion.
+     - Stops services and removes containers after execution.
+   - **Triggers:** On push to `main` 
 
-#### **2. `deploy.yaml`**
-- **Purpose**: Deploys and monitors a machine learning model on Vertex AI.
-- **Steps**:
-  - **Environment setup**: Configures Google Cloud SDK using secrets.
-  - **Model deployment**: Deploys a trained model to Vertex AI endpoints.
-  - **Monitoring**: Fetches the latest model and endpoint IDs and sets them for further monitoring.
+![Airflow DAG Trigger Workflow](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v3.1/assets/Trigger%20airflow%20action.png)
 
----
+#### 2. **Model Training Workflow**
+   - **File:** `model.yml`
+   - **Purpose:** Packages the trainer code, uploads it to GCS, and triggers a Vertex AI Custom Job for model training.
+   - **Key Steps:**
+     - Prepares a Python trainer package (`trainer/task.py`) and packages it.
+     - Uploads the package to a GCS bucket.
+     - Triggers a Vertex AI Custom Job with specified training arguments (e.g., dataset path, epochs, batch size).
+     - Notifies upon completion.
 
-#### **3. `model.yml`**
-- **Purpose**: Handles training and packaging a machine learning model for deployment.
-- **Steps**:
-  - **Trainer creation**: Builds a Python package (`trainer`) for model training.
-  - **Package upload**: Uploads the trainer package to Google Cloud Storage.
-  - **Training job**: Triggers a Vertex AI custom training job using the uploaded package.
-  - **Notification**: Indicates the completion of the training process.
+![Model Training Workflow](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v3.1/assets/Train%20deploy%20github%20action.png)
 
----
+#### 3. **Deploy and Monitor Workflow**
+   - **File:** `deploy_monitor.yaml`
+   - **Purpose:** Deploys the trained model to Vertex AI, creates an endpoint, and sets up monitoring for model performance and data drift.
+   - **Key Steps:**
+     - Deploys the model to Vertex AI.
+     - Configures a new or existing endpoint for predictions.
+     - Enables monitoring for performance and feature/data drift.
+   - **Triggers:** On push to `main` 
 
-#### **4. `PyTest.yaml`**
-- **Purpose**: Runs Python unit tests and generates test coverage reports.
-- **Steps**:
-  - **Environment setup**: Installs dependencies and Google Cloud CLI.
-  - **Testing**: Runs tests with pytest, generates coverage reports, and uploads them as artifacts.
-  - **Upload results**: Saves coverage reports to a GCP bucket for review.
+![Deploy and Monitor Workflow](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Deploy%20and%20monitor%20action.png)
 
----
+#### 4. **Train and Deploy Workflow**
+   - **File:** `train_deploy.yaml`
+   - **Purpose:** Trains the ML model and deploys it to Vertex AI for online predictions.
+   - **Key Steps:**
+     - Builds a Docker image of the training script and pushes it to GCP Artifact Registry.
+     - Triggers model training.
+     - Deploys the trained model to a new or existing endpoint.
+   - **Triggers:** On push to `main`
 
-#### **5. `syncgcp.yaml`**
-- **Purpose**: Synchronizes local artifacts and Airflow DAGs with a Google Cloud Storage bucket.
+![Train Workflow](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v3.1/assets/train%20deploy%20github%20action.png)
+
+#### 5. **Pytest Workflow**
+   - **File:** Not explicitly listed (part of repository tests).
+   - **Purpose:** Runs automated tests on codebase changes.
+   - **Key Steps:**
+     - Installs project dependencies.
+     - Executes tests using `pytest` to ensure the codebase is robust and ready for deployment.
+   - **Triggers:** On push to `main`
+
+![Pytest Workflow](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v3.1/assets/Pytest%20action.png)
+
+#### **6. `syncgcp.yaml`**
+- **Purpose**: Synchronizes local artifacts and Airflow DAGs with a Google Cloud Storage bucket. Workflow to build Docker images, upload artifacts to GCP, and deploy to endpoints.
 - **Steps**:
   - **Environment setup**: Installs the Google Cloud CLI and authenticates with a service account.
   - **File uploads**:
     - Uploads specific artifacts and files to predefined GCP bucket locations.
     - Synchronizes repository content with the bucket directory structure.
   - **Verification**: Lists uploaded files to confirm the sync.
+
+![Upload and Dockerize Workflow](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v3.1/assets/syncgcp%20githubaction.png)
+
 ---
 
 ![GitHub Actions](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Github%20Workflows.png)
@@ -153,10 +180,11 @@ Workflows and setups for managing machine learning pipelines on Vertex AI in Goo
 #### Summary
 These YAML workflows automate various aspects of an ML lifecycle:
 1. **`airflowtrigger.yaml`**: Airflow DAG management.
-2. **`deploy.yaml`**: Vertex AI deployment and monitoring.
+2. **`train_deploy.yaml`**: Trains the ML model and deploys it to Vertex AI for online predictions.
 3. **`model.yml`**: Training pipeline and GCS uploads.
 4. **`PyTest.yaml`**: Testing and reporting.
 5. **`syncgcp.yaml`**: Artifact and DAG synchronization with GCP.
+6. **`deploy_monitor.yaml`**: Deploys the trained model, monitoring for model performance and data drift.
 
 Each workflow is tailored for a specific task in CI/CD for ML operations, leveraging GitHub Actions and Google Cloud services.
 ---
@@ -167,8 +195,9 @@ Each workflow is tailored for a specific task in CI/CD for ML operations, levera
    - Vertex AI provides dashboards to monitor model performance and data drift.
    - Alerts are configured to notify stakeholders when anomalies, such as feature attribution drift, are detected.
 
-![Model Monitoring Notification](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Model%20Monitoring%20notification.png)
+![Monitor Feature Detection](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Monitor%20feature%20detection.png)
 
+![Monitor Drift Detection](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Monitor%20drift%20detection.png)
 
 ![Model Monitoring Anomalies](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Model%20monitoring%20Anomolies.png)
 
@@ -182,10 +211,28 @@ The provided images highlight the active setup and management of a Vertex AI mod
 
 ![Logging Dashboard](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Logging%20Dashboard.png)
 
-![Monitor Feature Detection](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Monitor%20feature%20detection.png)
-
-![Monitor Drift Detection](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v2.1/assets/Monitor%20drift%20detection.png)
 
 ---
 
+## Notifications
 
+### Vertex AI Failure Notification
+This notification is sent when a Vertex AI Model Monitoring job partially fails. For example, if the model encounters a drift detection issue or missing explanation specifications, an email alert is sent.
+
+![Vertex AI Failure Notification](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v3.1/assets/VertexAI%20failure%20notification.png)  
+
+### Vertex AI Anomaly and Data Drift Notification
+This email notification is triggered when data drift or anomalies are detected in the deployed model. It provides links to detailed logs and monitoring jobs for debugging.
+
+![Vertex AI Anomaly and Data Drift Notification](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v3.1/assets/Vertex%20AI%20Anomoly%20and%20Datadrift%20notify.png)  
+
+
+#### **Partial Failure Notification**
+This email is sent when a model monitoring job partially fails, providing details about the type of failure and suggestions for resolving the issue.
+
+![Partial Failure Notification](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v3.1/assets/VertexAI%20failure%20notification.png)  
+
+#### **Anomaly and Data Drift Detection Notification**
+This email is triggered when the Vertex AI monitoring job detects data drift or anomalies in the deployed model. It provides links for further investigation.
+
+![Anomaly and Data Drift Detection Notification](https://github.com/IE7374-MachineLearningOperations/StockPricePrediction/blob/v3.1/assets/Vertex%20AI%20Anomoly%20and%20Datadrift%20notify.png)  

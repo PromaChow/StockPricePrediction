@@ -4,7 +4,7 @@ Manor/
 aws/
 # DVC tracked files
 #*.dvc
-#.dvc/
+
 .dvc/cache/
 
 ### JupyterNotebooks ###
@@ -308,3 +308,5 @@ GCP/striped-graph-440017-d7-79f99f8253bc.json
 /src/DVC/
 /src/Data/
 *.dvc
+.dvc
+/*.dvc

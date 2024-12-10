@@ -11,9 +11,11 @@ jobs:
     runs-on: ubuntu-22.04
     
     steps:
+    # Step 1: Checkout Code
     - name: Checkout Code
       uses: actions/checkout@v3
       
+ # Step 2: Set up Google Cloud SDK
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v0.2.0
       with:
@@ -21,7 +23,7 @@ jobs:
         service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
         export_default_credentials: true
 
-    # Step : Deploy in Vertex AI
+    # Step 3: Deploy in Vertex AI
     - name: Deploy Model to Vertex AI
       run: |
           echo "Deploying model to Vertex AI..."
